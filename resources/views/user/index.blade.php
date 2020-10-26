@@ -7,6 +7,14 @@
         <div class="fade-in">
             <div class="row">
                 <div class="col-lg-12">
+                @if (session('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ session('message')}}
+                </div>
+                @endif
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Daftar User</div>
                         <div class="card-body">
@@ -16,22 +24,22 @@
                         <table class="table table-responsive-sm table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID User</th>
+                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($users as $no => $user)
                                     <tr>
-                                        <th scope="row">{{$user->id }}</th>
+                                        <th scope="row">{{$users->firstItem()+$no }}</th>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->role->name}}</td>
                                         <td>
-                                            <a hreff="{{ route('lecturer.add',[$user->id]) }}" class="btn btn-success">
+                                        <a href="" class="btn btn-primary" >
                                             <i class="cil-pencil"></i>
-                                            </a>
+                                        </a>
                                             <form action="{{ route('user.destroy',[$user->id]) }}" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -44,7 +52,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $users->links() }} 
+                            {{ $users->links() }}
                         </div>
                     </div>
                 </div>
@@ -60,6 +68,10 @@
 </div>
 </div>
 </div>
+
+
+<!-- Modal Edit User -->
+
 
 @section('javascript')
 

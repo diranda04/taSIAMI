@@ -43,7 +43,7 @@ class FacultyController extends Controller
 
             ]);
             $faculties -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Fakultas berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -85,7 +85,7 @@ class FacultyController extends Controller
             $faculties = Faculty::find($request->id_faculty);
             $faculties -> name = $request ->input ('name');
             $faculties -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Fakultas berhasil diubah');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -100,7 +100,6 @@ class FacultyController extends Controller
     public function destroy($id_faculty)
     {
         $faculties = Faculty::find($id_faculty)->delete();
-
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Fakultas berhasil dihapus');
     }
 }

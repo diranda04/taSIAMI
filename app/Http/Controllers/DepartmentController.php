@@ -46,7 +46,7 @@ class DepartmentController extends Controller
 
             ]);
             $departments -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Program studi berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -93,9 +93,9 @@ class DepartmentController extends Controller
             $departments = Department::find($request->id_department);
             $departments -> name = $request ->input ('name');
             $departments -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Program Studi berhasil diubah');
         } catch (\Throwable $th) {
-            //throw $th; 
+            //throw $th;
         }
     }
 
@@ -108,6 +108,6 @@ class DepartmentController extends Controller
     public function destroy(Department $department)
     {
         $dapertments = Department::find($id_department)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Program studi berhasil dihapus');
     }
 }

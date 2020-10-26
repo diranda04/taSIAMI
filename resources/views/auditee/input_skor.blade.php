@@ -28,10 +28,8 @@
                 <th scope="row">{{$no}}</th>
                   <td>{{$question->desc}}</td>
                   <td>
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewDetail">
-                      <i class="cil-input"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary" onClick="addScore('{{$question->id_question}}')">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewDetail" id='detailSkor'
+                  data-id="{{$question->id_question}}" >
                       <i class="cil-pencil"></i>
                   </button>
                   </td>
@@ -71,37 +69,11 @@
           <th>Desc</th>
         </tr>
       </thead>
-      <tbody>
-      @foreach ($score_details as $score_detail)
-        <tr>
-          <td>{{$score_detail->score}}</td>
-          <td>{{$score_detail->desc}}</td>
-        </tr>
-      @endforeach
+      <tbody id="body_table">
       </tbody>
     </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- add score -->
-<div class="modal fade" id="addScore" tabindex="-1" role="dialog" aria-labelledby="addDetailLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addDetailLabel">Tambah Taksiran Skor Audit</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="#" id="auditeeScore" method="POST">
+    <form action="#" id="auditeeScore" method="POST">
         @csrf
-        <h6>Isi Skor 0-4</h6>
           <div class="form-group">
             <label for="formGroupExampleInput2">Tambah Skor</label>
             <input type="int" name="score_auditee" class="form-control" id="score_auditee" placeholder="">
@@ -109,19 +81,41 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" onClick="addScore('{{$question->id_question}}')" class="btn btn-primary">Save changes</button>
       </div>
       </form>
+      </div>
     </div>
   </div>
 </div>
 
 @section('javascript')
 <script>
-function addScore(id_question) { 
+function addScore(id_question) {
   $('#addScore').modal('show');
   var baseUrl="{{url('/')}}"+"/skor_taksiran"+"/{{$id_audit}}"+"/"+id_question;
   $('#auditeeScore').attr('action', baseUrl);
 }
+$(document).on("click", "#detailSkor", function(){
+  var id=$(this).data("id");
+  var base_url = "{{ url('/') }}";
+  var rows = '';
+
+  $.ajax({
+    method: "GET",
+    dataType: 'json',
+    url : base_url+"/skor_taksiran/get_data/"+id,
+    success : function(data){
+      var detail = data.data_score;
+      $.each(detail, function(key, value){
+        rows = rows + "<tr>";
+        rows = rows + "<td>"+value.score+"</td>";
+        rows = rows + "<td>"+value.desc+"</td>";
+        rows = rows + "</tr>";
+      })
+      $("#body_table").html(rows);
+    }
+  });
+});
 </script>
 @endsection

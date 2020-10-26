@@ -15,7 +15,7 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periodes = Periode:: all();
+        $periodes = Periode::paginate(5);
      //  dd($periodes);
         return view ('periode.index', compact('periodes'));
     }
@@ -47,7 +47,7 @@ class PeriodeController extends Controller
                 'submit_end_at' => Carbon::parse($request->input('submit_end_at')),
             ]);
             $periodes -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Periode berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -96,7 +96,6 @@ class PeriodeController extends Controller
     public function destroy($id_periode)
     {
         $periodes = Periode::find($id_periode)->delete();
-
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Periode berhasil dihapus');
     }
 }

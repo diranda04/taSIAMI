@@ -52,7 +52,7 @@ class AuditFindingController extends Controller
 
             ]);
             $audit_findings->save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Temuan audit berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }

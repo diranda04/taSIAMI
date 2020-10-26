@@ -7,7 +7,7 @@
         <div class="col-md-10" >
         <button type="button" class="btn btn-square btn-secondary"><span class="cil-print btn-icon mr-2"></span>Cetak Berita Acara</button>
             <div class="card">
-        <img src="{{ ('assets/img/header.jpg') }}">
+        <img src="{{ ('assets/img/test.jpg') }}">
         <br>
         <?php
 function Tanggal($date) {
@@ -112,7 +112,7 @@ function Tanggal($date) {
       <td></td>
       <td>Jabatan</td>
       <td>:</td>
-      <td>Ketua Jurusan </td>
+      <td>Ketua Jurusan {{ $auditee->department->name }}</td>
     </tr>
     <tr>
       <td></td>
@@ -148,7 +148,7 @@ function Tanggal($date) {
 
   <p align="left"><font face="Arial">
     <strong>PIHAK PERTAMA</strong>  dan <strong>PIHAK KEDUA</strong>  secara bersama sama telah menyetujui hasil Audit Mutu Internal (AMI).
-    Program Studi S1 # Universitas Andalas tahun <?php echo date("Y");?>.
+    Program Studi S1 {{ $auditee->department->name }} Universitas Andalas tahun <?php echo date("Y");?>.
   </font></p>
 
   <p align="left"><font face="Arial">
@@ -192,7 +192,7 @@ function Tanggal($date) {
       <th>Diketahui Oleh</th>
     </tr>
     <tr align="center" >
-      <td>Dekan ## Universitas Andalas</td>
+      <td>Dekan {{ $auditee->department->faculty->name }} Universitas Andalas</td>
     </tr>
     <tr align="center">
       <td style="padding: 30px"></td>

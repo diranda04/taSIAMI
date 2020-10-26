@@ -32,6 +32,7 @@
     <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet"> <!-- icons -->
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets\air-datepicker\dist\css\datepicker.css')}}">
 
     @yield('css')
@@ -52,12 +53,7 @@
       // Bootstrap ID
       gtag('config', 'UA-118965717-5');
     </script>
-
-    <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
-
   </head>
-
-
 
   <body class="c-app">
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">

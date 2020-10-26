@@ -8,6 +8,14 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
+                @if (session('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ session('message')}}
+                </div>
+                @endif
                   <div class="card">
                     <div class="card-header"><i class="fa fa-align-justify"></i>Detail Skor</div>
                     <div class="card-body">
@@ -33,7 +41,7 @@
                             data-desc="#">
                                 <i class="cil-pencil"></i>
                             </a>
-                            
+
                             </td>
                           </tr>
                         @endforeach

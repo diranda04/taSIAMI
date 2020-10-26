@@ -42,12 +42,21 @@ class AuditController extends Controller
         $auditees = Auth::getuser()->lecturer->auditee;
         return view ('auditee.audit_prodi', compact('auditees'));
     }
-    public function beritaAcara(){
-        $audits = Audit:: all();
-        $departments = Department:: all();
-        $lecturers = Lecturer:: all();
-        $auditees = Auditee:: all();
-        return view ('berita_acara', compact('audits','departments', 'lecturers', 'auditees'));
+    public function beritaAcara($id_department){
+        $audits = Audit::where('department_id',$id_department)->get();
+        $departments = Department::all();
+        $auditees = Auditee::all();
+        $user_id = auth()->user()->id;
+        $auditee = Auditee::where('lecturer_id', $user_id)->first();
+        
+
+        //1. Cari periode id
+        //2. Cari audit yang memiliki periode_id tsb dan department id =$auditee->department_id ($audit->id)
+        //3. Cari audit department_audits yang audit_id = $audit->id
+
+
+        // $auditee=Auditee:: where ('id_lecturer', $user_id)-> first();
+        return view ('berita_acara', compact('audits','departments', 'auditees', 'auditee', 'id_department'));
     }
 
 

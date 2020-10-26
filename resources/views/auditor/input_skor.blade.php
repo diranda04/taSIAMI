@@ -23,17 +23,15 @@
               </thead>
               <tbody>
               <?php $no = 0;?>
-              @foreach ($audit_scores as $audit_score)
+              @foreach ($questions as $question)
               <?php $no++ ;?>
                 <tr>
                 <th scope="row">{{$no}}</th>
-                  <td>{{$audit_score->question->desc}}</td>
-                  <td>{{$audit_score->score_auditee}}</td>
+                  <td>{{$question->desc}}</td>
+                  <td></td>
                   <td>
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewDetail">
-                      <i class="cil-input"></i>
-                  </button>
-                  <button href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#addScore">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#viewDetail" id='detailSkor'
+                  data-id="{{$question->id_question}}" >
                       <i class="cil-pencil"></i>
                   </button>
                   </td>
@@ -73,62 +71,54 @@
           <th>Desc</th>
         </tr>
       </thead>
-      <tbody>
-      @foreach ($score_details as $score_detail)
-        <tr>
-          <td>{{$score_detail->score}}</td>
-          <td>{{$score_detail->desc}}</td>
-        </tr>
-      @endforeach
+      <tbody id="body_table">
       </tbody>
     </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- add score -->
-<div class="modal fade" id="addScore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Standard</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="{{route('skorAuditor.add',[$id_audit])}}" method="POST">
-      @csrf
-      @method('PATCH')
-      <h6>Isi Skor 0-4</h6>
+    <form action="#" id="auditorScore" method="POST">
+        @csrf
           <div class="form-group">
             <label for="formGroupExampleInput2">Tambah Skor</label>
-            <input type="text" class="form-control-file" id="edit_score_auditor"" name="score_auditor">
+            <input type="int" name="score_auditor" class="form-control" id="score_auditor" placeholder="">
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" onClick="addScore('{{$question->id_question}}')" class="btn btn-primary">Save changes</button>
       </div>
       </form>
+      </div>
     </div>
   </div>
 </div>
 
+
 @section('javascript')
 <script>
-  $(document).ready(function(){
+function addScore(id_question) {
+  $('#addScore').modal('show');
+  var baseUrl="{{url('/')}}"+"/skor_audit"+"/{{$id_audit}}"+"/"+id_question;
+  $('#auditorScore').attr('action', baseUrl);
+}
+$(document).on("click", "#detailSkor", function(){
+  var id=$(this).data("id");
+  var base_url = "{{ url('/') }}";
+  var rows = '';
 
-    $(document).on("click","#editButton", function(){
-      var score_auditor=$(this).data("score_auditor");
-      $("#edit_score_auditor").val(score_auditor);
-      console.log(id_audit_score);
-    })
-
-  })
+  $.ajax({
+    method: "GET",
+    dataType: 'json',
+    url : base_url+"/skor_audit/get_data/"+id,
+    success : function(data){
+      var detail = data.data_score;
+      $.each(detail, function(key, value){
+        rows = rows + "<tr>";
+        rows = rows + "<td>"+value.score+"</td>";
+        rows = rows + "<td>"+value.desc+"</td>";
+        rows = rows + "</tr>";
+      })
+      $("#body_table").html(rows);
+    }
+  });
+});
 </script>
 @endsection

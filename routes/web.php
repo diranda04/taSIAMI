@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::patch('/standard', 'StandardController@update')->name('standard.edit');
         Route::patch('/standard_component/{id_standard}', 'StandardComponentController@update')->name('component.edit');
+        // Route::patch('/user/{id}', 'UserController@update')->name('user.edit');
         Route::patch('/question/{id_standard_component}', 'QuestionController@update')->name('question.edit');
         Route::patch('/faculties', 'FacultyController@update')->name('faculty.edit');
         Route::patch('/department/{id_faculty}', 'DepartmentController@update')->name('prodi.edit');
@@ -86,11 +87,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/standard-audit/{id_audit}', 'StandardController@auditorScore')->name('instrument.detail');
         Route::get('/skor_audit/{id_audit}', 'AuditScoreController@indexAuditor')->name('skoraudit.view');
-
+        Route::get('/skor_audit/get_data/{id_audit}/','AuditScoreController@get_score')->name('skoraudit.get_data');
         Route::post('/temuan-audit/{id_audit}', 'AuditFindingController@store')->name('finding.post');
         Route::post('/auditor/PTK/keadaan-menyimpang/{id_audit}', 'CorrectionFormController@store')->name('devience.post');
 
-        Route::patch('/skor_audit/{id_audit}', 'AuditScoreController@scoreAuditor')->name('skorAuditor.add');
+        Route::post('/skor_audit/{id_audit}/{id_question}', 'AuditScoreController@scoreAuditor')->name('skorAuditor.add');
 });
 
     Route::group(['middleware' => ['checkrole:Auditee']], function () {
@@ -101,7 +102,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/PTK/permintaan-tindakan-koreksi/{id_audit}', 'CorrectionFormController@viewPTK')->name('ptk.view');
         Route::get('/PTK/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptk.print');
         Route::get('/skor_taksiran/{id_audit}', 'AuditScoreController@indexAuditee')->name('skortaksiran.view');
-        Route::get('/berita_acara', 'AuditController@beritaAcara')->name('beritaAcara.audit');
+        Route::get('/skor_taksiran/get_data/{id_audit}/','AuditScoreController@get_score')->name('skortaksiran.get_data');
+        Route::get('/berita_acara/{id_department}', 'AuditController@beritaAcara')->name('beritaAcara.audit');
 
         Route::post('/skor_taksiran/{id_audit}/{id_question}', 'AuditScoreController@store')->name('auditeeScore.post');
 

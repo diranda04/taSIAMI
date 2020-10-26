@@ -8,6 +8,14 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
+                @if (session('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ session('message')}}
+                </div>
+                @endif
                   <div class="card">
                     <div class="card-header"><i class="fa fa-align-justify"></i>Komponen Standar</div>
                     <div class="card-body">
@@ -18,7 +26,7 @@
                       <table class="table table-responsive-sm table-striped">
                         <thead>
                           <tr>
-                            
+
                             <th>ID_Komponen</th>
                             <th>Komponen Standar</th>
                             <th>Aksi</th>

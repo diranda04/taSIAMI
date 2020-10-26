@@ -46,7 +46,7 @@ class StandardController extends Controller
                 'name' => $request->input('name'),
             ]);
             $standards -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Standar berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -88,7 +88,7 @@ class StandardController extends Controller
             $standards = Standard::find($request->id_standard);
             $standards -> name = $request ->input ('name');
             $standards -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Standar berhasil diubah');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -104,6 +104,6 @@ class StandardController extends Controller
     public function destroy($id_standard)
     {
         $standards = Standard::find($id_standard)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Standar berhasil dihapus');
     }
 }

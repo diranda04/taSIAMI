@@ -32,6 +32,12 @@ class AuditScoreController extends Controller
         return view ('auditor.input_skor', compact('audit_scores','questions','score_details', 'id_audit'));
     }
 
+    public function get_score($id)
+    {
+        $data_score = ScoreDetail::where('question_id',$id)->get();
+        return response()->json(['data_score'=>$data_score]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -93,16 +99,18 @@ class AuditScoreController extends Controller
      * @param  \App\AuditScore  $auditScore
      * @return \Illuminate\Http\Response
      */
-    public function scoreAuditor(Request $request)
+    public function scoreAuditor(Request $request, $id_audit, $id_question)
     {
-        try {
-            $audit_scores = AuditScore::find($request->id_audit_score);
-            $audit_scores -> score_auditor = $request ->input ('score_auditor');
-            $audit_scores -> save();
+
+            $audit_scores = AuditScore::firstOrNew ([
+                'audit_id' => $id_audit,
+                'question_id' => $id_question
+                ]);
+
+            $audit_scores -> score_auditor = $request -> input ('score_auditor');
+            $audit_scores->save();
             return redirect()->back();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+
     }
 
     /**

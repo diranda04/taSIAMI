@@ -59,7 +59,7 @@ class DeanController extends Controller
 
             ]);
             $deans->save();
-            return redirect ()->route('dean.index');
+            return redirect ()->route('dean.index')->with('message', 'Dekan berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -108,6 +108,6 @@ class DeanController extends Controller
     public function destroy($id_dean)
     {
         $deans = Dean::find($id_dean)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Dekan berhasil dihapus');
     }
 }

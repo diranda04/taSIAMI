@@ -15,7 +15,7 @@ class LecturerController extends Controller
      */
 
     public function index(){
-        $lecturers = Lecturer::all();
+        $lecturers = Lecturer::paginate(5);
         $users = User::all();
         return view('lecturer.index', compact('lecturers','users'));
     }
@@ -34,7 +34,7 @@ class LecturerController extends Controller
     public function create()
     {
         //
-    } 
+    }
 
 
     /**
@@ -53,7 +53,7 @@ class LecturerController extends Controller
 
             ]);
             $lecturers->save();
-            return redirect ()->route('lecturer.index');
+            return redirect ()->route('lecturer.index')->with('message', 'Berhasil menambahkan dosen');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -102,6 +102,6 @@ class LecturerController extends Controller
     public function destroy($id_lecturer)
     {
         $lecturers = Lecturer::find($id_lecturer)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Dosen berhasil dihapus');
     }
 }

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
 
     public function index(){
-        $users = User::paginate(10); 
+        $users = User::paginate(10);
         $roles = Role::all();
         return view('user.index', compact('users','roles'));
     }
@@ -34,16 +34,17 @@ class UserController extends Controller
                 'role_id' => $request->input('roleselect'),
             ]);
 
-            return redirect ()->route('user.index');
+            return redirect ()->route('user.index')->with('message', 'User berhasil ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
+
     public function destroy($id)
     {
         $users = User::find($id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'User berhasil dihapus');
     }
 
 }

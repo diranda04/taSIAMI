@@ -18,7 +18,7 @@ class QuestionController extends Controller
         return view ('question.list', compact('questions'));
     }
 
-    /** 
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -43,7 +43,7 @@ class QuestionController extends Controller
 
         ]);
         $questions->save();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Indikator penilaian berhasil ditambahkan');
     }
 
     public function detailComponent($id_standard_component){
@@ -87,7 +87,7 @@ class QuestionController extends Controller
             $question = Question::find($request->id_question);
             $question -> desc = $request ->input ('desc');
             $question -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Indikator penilaian berhasil diubah');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -101,7 +101,6 @@ class QuestionController extends Controller
     public function destroy($id_question)
     {
         $questions = Question::find($id_question)->delete();
-
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Indikator penilaian berhasil dihapus');
     }
 }

@@ -41,10 +41,9 @@ class StandardComponentController extends Controller
                 'id_standard_component' => $request->input('id_standard_component'),
                 'desc' => $request->input('desc'),
                 'standard_id' => $id_standard,
-
             ]);
-            
-            return redirect()->back();
+
+            return redirect()->back()->with('message', 'Komponen standar berhasil ditambahkan');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -90,7 +89,7 @@ class StandardComponentController extends Controller
             $standard_components = StandardComponent::find($request->id_standard_component);
             $standard_components -> desc = $request ->input ('desc');
             $standard_components -> save();
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Komponen Standar berhasil diubah');
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -105,6 +104,6 @@ class StandardComponentController extends Controller
     public function destroy($id_standard_component)
     {
         $standard_components = StandardComponent::find($id_standard_component)->delete();
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Komponen standar berhasil dihapus');
     }
 }

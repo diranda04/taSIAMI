@@ -17,6 +17,7 @@
                                         <th class="text-center">Periode</th>
                                         <th class="text-center">Prodi</th>
                                         <th class="text-center">Perkiraan Skor Audit</th>
+                                        <th class="text-center">Berita Acara</th>
                                         <th class="text-center">Temuan Audit</th>
                                         <th class="text-center">Permintaan Tindak Koreksi</th>
                                     </tr>
@@ -30,6 +31,9 @@
                                         <td>
                                         <a href="{{ route('skortaksiran.view',[$audit->id_audit]) }}" class="btn btn-danger">
                                         <span class="cil-pencil btn-icon mr-2"></span>Isi
+                                        </a></td>
+                                        <td><a href="{{ route('beritaAcara.audit',[$audit->department_id]) }}" class="btn btn-secondary">
+                                        <span class="cil-print btn-icon mr-2"></span>Cetak
                                         </a></td>
                                         <td><a href="{{ route('finding.lihat',[$audit->id_audit]) }}" class="btn btn-success">
                                         <span class="cil-description btn-icon mr-2"></span>Temuan audit
