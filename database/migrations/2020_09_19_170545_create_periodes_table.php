@@ -17,8 +17,6 @@ class CreatePeriodesTable extends Migration
             $table->string('id_periode', 5);
             $table->date('audit_start_at');
             $table->date('audit_end_at');
-            $table->date('submit_start_at');
-            $table->date('submit_end_at');
             $table->timestamps();
 
             $table->primary('id_periode');

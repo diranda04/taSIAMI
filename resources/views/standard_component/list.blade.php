@@ -44,7 +44,7 @@
                                             data-desc="{{$standard_component->desc}}">
                                 <i class="cil-pencil"></i>
                             </a>
-                            <form action="{{ route('component.destroy',[$standard_component->id_standard_component]) }}" method="post" class="d-inline">
+                            <form action="{{ route('component.destroy',[$standard_component->id_standard_component]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                           @csrf
                           @method('DELETE')
                             <button class= "btn btn-danger">

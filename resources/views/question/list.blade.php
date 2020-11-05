@@ -44,7 +44,7 @@
                             data-desc="{{$question->desc}}">
                                 <i class="cil-pencil"></i>
                             </a>
-                            <form action="{{ route('question.destroy',[$question->id_question]) }}" method="post" class="d-inline">
+                            <form action="{{ route('question.destroy',[$question->id_question]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                           @csrf
                           @method('DELETE')
                             <button class= "btn btn-danger">
@@ -56,14 +56,6 @@
                         @endforeach
                         </tbody>
                       </table>
-                      <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                      </ul>
                     </div>
                   </div>
                 </div>

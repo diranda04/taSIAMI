@@ -36,7 +36,7 @@
                                     @foreach ($departments as $department)
                                     <tr>
                                         <th scope="row">{{$department->id_department }}</th>
-                                        <td>{{$department->name}}</td>
+                                        <td>{{$department->department_name}}</td>
 
                                         <td>
                                             <!-- <a href="{{ url('department/'.$department->id_department) }}"
@@ -47,7 +47,7 @@
                                             data-name="{{$department->name}}">
                                                 <i class="cil-pencil"></i>
                                             </a>
-                                            <form action="{{ route('department.destroy',[$department->id_department]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('department.destroy',[$department->id_department]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -95,7 +95,7 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Nama</label>
-        <input type="text" class="form-control-file" id="name" name="name">
+        <input type="text" class="form-control-file" id="department_name" name="department_name">
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Akreditasi</label>
@@ -138,7 +138,7 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Nama Prodi</label>
-        <input type="text" class="form-control-file" id="edit_name" name="name">
+        <input type="text" class="form-control-file" id="edit_name" name="department_name">
       </div>
 
 
@@ -158,9 +158,9 @@
 
     $(document).on("click","#editButton", function(){
       var id_department=$(this).data("id_department");
-      var name=$(this).data("name");
+      var department_name=$(this).data("department_name");
       $("#edit_id").val(id_department);
-      $("#edit_name").val(name);
+      $("#edit_name").val(department_name);
       console.log(id_department);
     })
 

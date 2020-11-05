@@ -28,7 +28,7 @@
                                         <td>{{Carbon\Carbon::parse($instrument->periode->audit_start_at)->format('Y')}}</td>
                                         <td>{{$instrument->standard->name}}</td>
                                         <td>
-                                            <form action="{{ url('instrument/'.$instrument->id_instrument) }}" method="post" class="d-inline">
+                                            <form action="{{ route ('instrument.destroy',[$instrument->id])}}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">

@@ -15,7 +15,7 @@ class CreateAuditInstrumentsTable extends Migration
     {
         Schema::create('audit_instruments', function (Blueprint $table) {
             $table->id();
-            $table->string('standard_id', 6)->unique();
+            $table->string('standard_id', 6);
             $table->string('periode_id', 5);
             $table->timestamps();
 

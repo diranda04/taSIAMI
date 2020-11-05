@@ -1,12 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"  />
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-</head>
+
 <div>
     <div class="container">
         <div class="fade-in">
@@ -33,9 +28,11 @@
                                     <tr>
                                         <td>{{$auditor->user->name}}</td>
                                         <td>
-                                            <input data-id="{{$auditor->id_auditor}}" class="toggle-class" type="checkbox"
-                                            data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                            data-on="Active" data-off="InActive" {{ $auditor->status ? 'checked' : '' }}>
+                                        @if($auditor->status == 1)
+                                        <a href="{{ route('auditor.change',[$auditor->id_auditor]) }}" class="btn btn-success">Aktif</a>
+                                        @else
+                                        <a href="{{ route('auditor.change',[$auditor->id_auditor]) }}" class="btn btn-danger">Tidak Aktif</a>
+                                        @endif
                                         </td>
                                         <td>
                                             <form action="{{ route('auditor.destroy',[$auditor->id_auditor]) }}" method="post" class="d-inline">
@@ -64,23 +61,14 @@
 
 @section('javascript')
 
-<script>
-  $(function() {
-    $('.toggle-class').change(function() {
-        var status = $(this).prop('checked') == true ? 1 : 0;
-        var id_auditor = $(this).data('id_auditor');
-         console.log("test");
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: '/auditorChangeStatus',
-            data: {'status': status, 'id_auditor': id_auditor},
-            success: function(data){
-              console.log(data.success)
-            }
-        });
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
     })
-  })
 </script>
 
 @endsection

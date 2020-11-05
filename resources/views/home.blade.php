@@ -7,7 +7,7 @@
   <p class="lead">Sistem Informasi Audit Mutu Internal Universitas Andalas</p>
   <hr class="my-4">
   <p>Anda adalah <strong>{{auth()->user()->role->name}}</strong></p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  <a class="btn btn-primary btn-lg" href="{{ route('penempatan.print') }}" role="button">Learn more</a>
 </div>
 
 

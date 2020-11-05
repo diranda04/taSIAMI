@@ -44,7 +44,8 @@
                                             data-name="{{$standard->name}}">
                                                 <i class="cil-pencil"></i>
                                             </a>
-                                            <form action="{{ route('standard.destroy',[$standard->id_standard]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('standard.destroy',[$standard->id_standard]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')"
+                                            class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -127,8 +128,6 @@
         <label for="exampleFormControlFile1">Keterangan</label>
         <input type="text" class="form-control-file" id="edit_name" name="name">
       </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -153,4 +152,6 @@
 
   })
 </script>
+
+
 @endsection

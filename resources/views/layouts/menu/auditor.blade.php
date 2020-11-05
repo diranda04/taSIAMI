@@ -8,9 +8,9 @@
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditor/audit-prodi">
     <i class="c-sidebar-nav-icon cil-layers"></i>
      Audit Prodi</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="#">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditor/dokumen-audit">
     <i class="c-sidebar-nav-icon cil-storage"></i>
-     Dokumentasi AMI</a></li>
+     Dokumentasi AMI</a></li>   
 
 </ul>
 <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"

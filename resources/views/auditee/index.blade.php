@@ -29,7 +29,7 @@
                                 @foreach ($auditees as $auditee)
                                     <tr>
                                         <td>{{$auditee->lecturer->user->name}}</td>
-                                        <td>{{$auditee->department->name}}</td>
+                                        <td>{{$auditee->department->department_name}}</td>
                                         <td>{{$auditee->start_at}}</td>
                                         <td>{{$auditee->end_at}}</td>
                                         <td>

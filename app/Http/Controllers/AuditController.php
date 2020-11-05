@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Audit;
+use App\Auditor;
 use App\Department;
 use App\DepartmentAudit;
 use App\Lecturer;
 use App\Periode;
 use App\Auditee;
+use App\Dean;
+use App\User;
 use Auth;
+use Illuminate\Support\Facades\DB;
+use PDF;
 use Illuminate\Http\Request;
 
 class AuditController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $audits = Audit:: all();
@@ -34,49 +34,73 @@ class AuditController extends Controller
     }
 
     public function prodiAudit(){
+
         $auditors = Auth::getuser()->auditor->departmentAudit;
+        // dd($auditors);
         return view ('auditor.audit_prodi', compact('auditors'));
     }
+
 
     public function lihatAuditProdi(){
         $auditees = Auth::getuser()->lecturer->auditee;
         return view ('auditee.audit_prodi', compact('auditees'));
     }
+
     public function beritaAcara($id_department){
         $audits = Audit::where('department_id',$id_department)->get();
-        $departments = Department::all();
-        $auditees = Auditee::all();
         $user_id = auth()->user()->id;
         $auditee = Auditee::where('lecturer_id', $user_id)->first();
-        
+        $Deans = User::join("lecturers","users.id","=","lecturers.id_lecturer")->
+        join("deans","lecturers.id_lecturer","deans.lecturer_id")->
+        where("faculty_id", auth()->user()->lecturer->auditee->first()->department->faculty_id)->orderBy('end_at', "desc")->first();
+        $auditors = DepartmentAudit::join("auditors", "department_audits.auditor_id", "=","auditors.id_auditor")->
+        join("audits", "department_audits.audit_id", "=", "audits.id_audit")->join("users", "auditors.id_auditor", "=", "users.id")->
+        join("departments", "audits.department_id","=", "departments.id_department")->
+        where("audits.department_id", auth()->user()->lecturer->auditee->first()->department->id_department)->get();
 
-        //1. Cari periode id
-        //2. Cari audit yang memiliki periode_id tsb dan department id =$auditee->department_id ($audit->id)
-        //3. Cari audit department_audits yang audit_id = $audit->id
+        view()->share('audits',$audits);
+        $pdf = PDF::loadview('beritaAcara',['audits'=> $audits, 'auditee'=>$auditee, 'Deans'=>$Deans, 'auditors'=>$auditors]);
+        return $pdf->stream();
 
-
-        // $auditee=Auditee:: where ('id_lecturer', $user_id)-> first();
-        return view ('berita_acara', compact('audits','departments', 'auditees', 'auditee', 'id_department'));
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function dokumenAudit(){
+        $auditors = Auth::getuser()->auditor->departmentAudit;
+        return view ('auditor.dokumen_audit', compact('auditors'));
+    }
+    public function dokumenAuditee(){
+        $auditees = Auth::getuser()->lecturer->auditee;
+        return view ('auditee.dokumen_audit', compact('auditees'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function dokumenAdmin(){
+        $audits = Audit::all();
+        return view ('admin.dokumen_audit', compact('audits'));
+    }
+
+    public function penempatan(){
+
+        $auditors =DepartmentAudit::join("auditors", "department_audits.auditor_id", "=","auditors.id_auditor")->
+        join("audits", "department_audits.audit_id", "=", "audits.id_audit")->join("users", "auditors.id_auditor", "=", "users.id")->
+        join("departments", "audits.department_id","=", "departments.id_department")->
+        join(DB::raw("(select * from periodes order by audit_start_at asc limit 1) as period"), "audits.periode_id","=", "period.id_periode")->
+        get();
+
+        // get();
+        $auditees =Auditee::join("lecturers", "lecturers.id_lecturer", "=", "auditees.lecturer_id")->
+        join("users", "lecturers.id_lecturer", "=", "users.id")->join("departments", "departments.id_department", "=", "auditees.department_id")->
+        join("audits", "departments.id_department", "=", "audits.department_id")->
+        join(DB::raw("(select * from periodes order by audit_start_at asc limit 1) as period"), "audits.periode_id","=", "period.id_periode")->
+        get();
+
+        // dd($auditees);
+        view()->share('auditors',$auditors);
+        $pdf = PDF::loadview('penempatan', compact ('auditors', 'auditees'));
+        return $pdf->stream();
+
+
+    }
+
     public function store(Request $request)
     {
         try {
@@ -92,46 +116,6 @@ class AuditController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Audit  $audit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Audit $audit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Audit  $audit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Audit $audit)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Audit  $audit
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Audit $audit)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Audit  $audit
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id_audit)
     {
         $audits = Audit::find($id_audit)->delete();

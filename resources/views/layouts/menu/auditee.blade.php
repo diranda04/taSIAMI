@@ -8,7 +8,7 @@
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/audit-prodi">
     <i class="c-sidebar-nav-icon cil-layers"></i>
      Audit Prodi</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="#">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditee/dokumen-audit">
     <i class="c-sidebar-nav-icon cil-storage"></i>
      Dokumentasi AMI</a></li>
 

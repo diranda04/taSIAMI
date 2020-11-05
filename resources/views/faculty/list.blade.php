@@ -47,7 +47,7 @@
                                             data-name="{{$faculty->name}}">
                                                 <i class="cil-pencil"></i>
                                             </a>
-                                            <form action="{{ route('faculty.destroy',[$faculty->id_faculty]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('faculty.destroy',[$faculty->id_faculty]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">

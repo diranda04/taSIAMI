@@ -28,8 +28,6 @@
                                         <th>ID Periode</th>
                                         <th>Mulai Audit</th>
                                         <th>Akhir Audit</th>
-                                        <th>Mulai Submit</th>
-                                        <th>Akhir Submit</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,10 +37,8 @@
                                         <th scope="row">{{$periode->id_periode}}</th>
                                         <td>{{$periode->audit_start_at}}</td>
                                         <td>{{$periode->audit_end_at}}</td>
-                                        <td>{{$periode->submit_start_at}}</td>
-                                        <td>{{$periode->submit_end_at}}</td>
                                         <td>
-                                        <form action="{{ route('periode.destroy',[$periode->id_periode]) }}" method="post" class="d-inline">
+                                        <form action="{{ route('periode.destroy',[$periode->id_periode]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -86,14 +82,6 @@
                 <div class="form-group" id='datepicker'>
                   <label for="exampleFormControlFile1">Akhir Audit</label>
                   <input type="text" class="datepicker-here form-control" id="audit_end_at" name="audit_end_at">
-                </div>
-                <div class="form-group" id='datepicker'>
-                  <label for="exampleFormControlFile1">Mulai Submit</label>
-                  <input type="text" class="datepicker-here form-control" id="submit_start_at" name="submit_start_at">
-                </div>
-                <div class="form-group" id='datepicker'>
-                  <label for="exampleFormControlFile1">Akhir Submit</label>
-                  <input type="text" class="datepicker-here form-control" id="submit_end_at" name="submit_end_at">
                 </div>
                 <div>
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->

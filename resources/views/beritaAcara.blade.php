@@ -1,15 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10" >
-        <button type="button" class="btn btn-square btn-secondary"><span class="cil-print btn-icon mr-2"></span>Cetak Berita Acara</button>
-            <div class="card">
-        <img src="{{ asset('assets/img/test.jpg') }}">
-        <br>
-        <?php
+<html>
+ <head>
+  <title> Permintaan Tindakan Koreksi </title>
+ </head>
+ <body bgcolor="white">
+        <img style="width:100%" src="{{ ('assets/img/test.jpg') }}">
+  <br>
+  <?php
 function Tanggal($date) {
     $date = date('Y-m-d',strtotime($date));
     if($date == '0000-00-00')
@@ -19,74 +15,32 @@ function Tanggal($date) {
     $bln = substr($date, 5, 2);
     $thn = substr($date, 0, 4);
 
-    switch ($bln) {
-        case 1 : {
-                $bln = 'Januari';
-            }break;
-        case 2 : {
-                $bln = 'Februari';
-            }break;
-        case 3 : {
-                $bln = 'Maret';
-            }break;
-        case 4 : {
-                $bln = 'April';
-            }break;
-        case 5 : {
-                $bln = 'Mei';
-            }break;
-        case 6 : {
-                $bln = "Juni";
-            }break;
-        case 7 : {
-                $bln = 'Juli';
-            }break;
-        case 8 : {
-                $bln = 'Agustus';
-            }break;
-        case 9 : {
-                $bln = 'September';
-            }break;
-        case 10 : {
-                $bln = 'Oktober';
-            }break;
-        case 11 : {
-                $bln = 'November';
-            }break;
-        case 12 : {
-                $bln = 'Desember';
-            }break;
-        default: {
-                $bln = 'UnKnown';
-            }break;
+    switch ($bln)
+        {case 1 : { $bln = 'Januari';}break;
+        case 2 : {$bln = 'Februari';}break;
+        case 3 : {$bln = 'Maret';}break;
+        case 4 : {$bln = 'April';}break;
+        case 5 : {$bln = 'Mei';}break;
+        case 6 : {$bln = "Juni";}break;
+        case 7 : {$bln = 'Juli';}break;
+        case 8 : {$bln = 'Agustus';}break;
+        case 9 : {$bln = 'September';}break;
+        case 10 : {$bln = 'Oktober';}break;
+        case 11 : {$bln = 'November';}break;
+        case 12 : {$bln = 'Desember';}break;
+        default: {$bln = 'UnKnown';}break;
     }
 
     $hari = date('N', strtotime($date));
     switch ($hari) {
-        case 0 : {
-                $hari = 'Minggu';
-            }break;
-        case 1 : {
-                $hari = 'Senin';
-            }break;
-        case 2 : {
-                $hari = 'Selasa';
-            }break;
-        case 3 : {
-                $hari = 'Rabu';
-            }break;
-        case 4 : {
-                $hari = 'Kamis';
-            }break;
-        case 5 : {
-                $hari = "Jum'at";
-            }break;
-        case 6 : {
-                $hari = 'Sabtu';
-            }break;
-        default: {
-                $hari = 'UnKnown';
-            }break;
+        case 0 : {$hari = 'Minggu';}break;
+        case 1 : {$hari = 'Senin';}break;
+        case 2 : {$hari = 'Selasa';}break;
+        case 3 : {$hari = 'Rabu';}break;
+        case 4 : {$hari = 'Kamis';}break;
+        case 5 : {$hari = "Jum'at";}break;
+        case 6 : {$hari = 'Sabtu';}break;
+        default: {$hari = 'UnKnown';}break;
     }
     $tanggal = "hari ini ".$hari." tanggal ".$tgl . " bulan " . $bln . " tahun " . $thn;
     return $tanggal;
@@ -97,10 +51,10 @@ function Tanggal($date) {
   </p>
   <table style="width:100%">
     <tr>
-      <td>1.</td>
-      <td>Nama</td>
-      <td>:</td>
-      <td>{{auth()->user()->name}}</td>
+      <td style="width:5%">1.</td>
+      <td style="width:10%">Nama</td>
+      <td style="width:5%">:</td>
+      <td style="width:80%">{{auth()->user()->name}}</td>
     </tr>
     <tr>
       <td></td>
@@ -124,10 +78,10 @@ function Tanggal($date) {
   @php $no=2; @endphp
 @foreach($auditors as $auditor)
     <tr>
-      <td> {{$no++}}</td>
-      <td>Nama</td>
-      <td>:</td>
-      <td>{{$auditor->name}}</td>
+      <td style="width:5%"> {{$no++}}</td>
+      <td style="width:10%">Nama</td>
+      <td style="width:5%">:</td>
+      <td style="width:80%">{{$auditor->name}}</td>
     </tr>
     <tr>
       <td></td>
@@ -135,19 +89,19 @@ function Tanggal($date) {
       <td>:</td>
       <td>{{$auditor->id}}</td>
     </tr>
+    @endforeach
     <tr>
       <td></td>
+      <br>
       <td>Jabatan</td>
       <td>:</td>
       <td>Auditor </td>
     </tr>
     <tr>
-@endforeach
       <td></td>
       <td colspan="3">Selanjutnya disebut sebagai <strong>PIHAK KEDUA</strong></td>
     </tr>
   </table>
-  <br>
 
   <p align="left"><font face="Arial">
     <strong>PIHAK PERTAMA</strong>  dan <strong>PIHAK KEDUA</strong>  secara bersama sama telah menyetujui hasil Audit Mutu Internal (AMI).
@@ -172,6 +126,7 @@ function Tanggal($date) {
       <td style="padding: 30px"></td>
       <td style="padding: 30px"></td>
       <td style="padding: 30px"></td>
+      <td style="padding: 30px"></td>
     </tr>
     <tr align="center">
     @foreach($auditors as $auditor)
@@ -181,11 +136,12 @@ function Tanggal($date) {
     </tr>
     <tr align="center">
     @foreach($auditors as $auditor)
-      <td>{{$auditor->id}}</td>
+      <td>NIP.{{$auditor->id}}</td>
     @endforeach
-      <td>{{auth()->user()->id}}</td>
+      <td>NIP.{{auth()->user()->id}}</td>
     </tr>
     <tr align="center">
+      <td style="padding: 10px"></td>
       <td style="padding: 10px"></td>
       <td style="padding: 10px"></td>
       <td style="padding: 10px"></td>
@@ -206,11 +162,10 @@ function Tanggal($date) {
       <td>{{ $Deans->name }}</td>
     </tr>
     <tr align="center">
-      <td>{{ $Deans->id}}</td>
+      <td>NIP.{{ $Deans->id}}</td>
     </tr>
   </table>
         </div>
 
     </div>
 </div>
-@endsection

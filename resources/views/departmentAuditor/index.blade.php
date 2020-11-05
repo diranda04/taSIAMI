@@ -26,9 +26,9 @@
                                 @foreach ($department_audits as $department_audit)
                                     <tr>
                                         <td>{{$department_audit->auditor->user->name}}</td>
-                                        <td>{{$department_audit->audit->department->name}}</td>
+                                        <td>{{Carbon\Carbon::parse($department_audit->audit->periode->audit_start_at)->format('Y') }}-{{$department_audit->audit->department->department_name}}</td>
                                         <td>
-                                            <form action="{{ route('departmentAudit.destroy',[$department_audit->id_department_audit]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('departmentAudit.destroy',[$department_audit->id_department_audit]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">

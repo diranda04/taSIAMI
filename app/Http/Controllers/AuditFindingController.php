@@ -4,44 +4,56 @@ namespace App\Http\Controllers;
 
 use App\AuditFinding;
 use App\Audit;
+use App\DepartmentAudit;
 use Illuminate\Http\Request;
+use PDF;
 
 class AuditFindingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id_audit)
     {
         $audit_findings = AuditFinding::where('audit_id',$id_audit)->get();
         return view ('auditee.finding', compact('audit_findings','id_audit'));
     }
 
-
-
     public function detailFinding($id_audit){
         $audit_findings = AuditFinding::where('audit_id',$id_audit)->get();
         return view ('auditor.finding', compact('audit_findings','id_audit'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function printFinding($id_audit){
+
+        $audit_findings = AuditFinding::where('audit_id',$id_audit)->get();
+        $auditors = DepartmentAudit::join("auditors", "department_audits.auditor_id", "=","auditors.id_auditor")->
+        join("audits", "department_audits.audit_id", "=", "audits.id_audit")->
+        join("users", "auditors.id_auditor", "=", "users.id")->
+        join("departments", "audits.department_id","=", "departments.id_department")->
+        where("audits.department_id", auth()->user()->lecturer->auditee->first()->department->id_department)->get();
+
+        view()->share('audit_findings',$audit_findings);
+        $pdf = PDF::loadview('temuan_print',['audit_findings'=> $audit_findings, 'auditors'=>$auditors]);
+        return $pdf->stream();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function printFindingAuditor($id_audit){
+
+        $audit_findings = AuditFinding::where('audit_id',$id_audit)->get();
+
+        view()->share('audit_findings',$audit_findings);
+        $pdf = PDF::loadview('auditor.temuan_print', compact('audit_findings'));
+        return $pdf->stream();
+    }
+
+    public function printFindingAdmin($id_audit){
+        $audit_findings = AuditFinding::where('audit_id',$id_audit)->get();
+
+
+        view()->share('audit_findings',$audit_findings);
+        $pdf = PDF::loadview('auditor.temuan_print',['audit_findings'=> $audit_findings]);
+        return $pdf->stream();
+    }
+
+
     public function store(Request $request, $id_audit)
     {
         try {
@@ -58,46 +70,6 @@ class AuditFindingController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\AuditFinding  $auditFinding
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AuditFinding $auditFinding)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\AuditFinding  $auditFinding
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AuditFinding $auditFinding)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AuditFinding  $auditFinding
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AuditFinding $auditFinding)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\AuditFinding  $auditFinding
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(AuditFinding $auditFinding)
     {
         //

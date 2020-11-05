@@ -26,7 +26,7 @@
                                 @foreach ($audits as $audit)
                                     <tr>
                                         <td>{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y')}}</td>
-                                        <td>{{$audit->department->name}}</td>
+                                        <td>{{$audit->department->department_name}}</td>
                                         <td>
                                             <form action="{{ route('audit.destroy',[$audit->id_audit]) }}" method="post" class="d-inline">
                                                 @csrf

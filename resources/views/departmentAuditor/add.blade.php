@@ -28,7 +28,7 @@
                 <label for="exampleFormControlSelect2">Audit</label>
                 <select name = "auditSelect" class="form-control" id="exampleFormControlSelect2">
                     @foreach ($audits as $audit)
-                    <option value="{{$audit->id_audit}}">{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y') }} {{$audit->department->name}}</option>
+                    <option value="{{$audit->id_audit}}">{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y') }} {{$audit->department->department_name}}</option>
                     @endforeach
                 </select>
               </div>

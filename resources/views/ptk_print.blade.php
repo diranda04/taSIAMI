@@ -57,7 +57,7 @@ function Tanggal($date) {
         <tr>
         <td>PTK</td>
         <td>:</td>
-        <td>Program Studi {{$audits()->departments()->name}} {{correction_forms()->audits()->departments()->faculty->name}} UNAND <?php echo date("Y");?></td>
+        <td>Program Studi UNAND <?php echo date("Y");?></td>
         </tr>
         <tr>
         <td>Kepada</td>
@@ -122,7 +122,7 @@ function Tanggal($date) {
         @endforeach
     </tbody>
     </table>
-    <p><strong>Tindakan koreksi selesai tanggal	:</strong><?= Tanggal(date('Y-m-d')) ?></p>
+    <p><strong>Tindakan koreksi selesai tanggal	:</strong><?= Tanggal(date('d M Y')) ?></p>
 
   </body>
 </html>

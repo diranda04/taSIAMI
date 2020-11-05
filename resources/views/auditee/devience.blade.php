@@ -17,6 +17,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th class="text-center">Keadaan Menyimpang</th>
+                                        <th class="text-center">Akar Penyebab</th>
+                                        <th class="text-center">Rencana Perbaikan</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -28,6 +30,8 @@
                                     <tr>
                                         <td>{{$no}}</td>
                                         <td>{{$correction_form->devience}}</td>
+                                        <td>{{$correction_form->causes}}</td>
+                                        <td>{{$correction_form->plan}}</td>
                                         <td class="text-center">
                                         <a href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#editPTK" data-id_correction_form="{{$correction_form->id_correction_form}}"
                                             data-devience="{{$correction_form->devience}}">

@@ -71,11 +71,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST">
+        <form action="{{route('detail.post',[$id_question])}}" method="POST">
         @csrf
           <div class="form-group">
-            <label for="formGroupExampleInput">ID Question</label>
-            <input type="text" name= "id_question" class="form-control" id="id_question" placeholder="">
+            <label for="formGroupExampleInput">Skor</label>
+            <input type="text" name= "score" class="form-control" id="score" placeholder="">
           </div>
           <div class="form-group">
             <label for="formGroupExampleInput2">Deskribsi</label>

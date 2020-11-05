@@ -28,7 +28,7 @@
                 <label for="exampleFormControlSelect2">Prodi</label>
                 <select name = "prodiSelect" class="form-control" id="exampleFormControlSelect2">
                     @foreach ($departments as $department)
-                    <option value="{{$department->id_department}}">{{$department->name}}</option>
+                    <option value="{{$department->id_department}}">{{$department->department_name}}</option>
                     @endforeach
                 </select>
               </div>

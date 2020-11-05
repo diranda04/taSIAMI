@@ -16,12 +16,12 @@
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditor"> Kelola Auditor</a></li>
         </ul>
     </li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/faculties">
-            <i class="c-sidebar-nav-icon cil-institution"></i>
-            Kelola Fakultas</a></li>
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/standard">
             <i class="c-sidebar-nav-icon cil-book"></i>
             Kelola Instrumen AMI</a></li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/faculties">
+            <i class="c-sidebar-nav-icon cil-institution"></i>
+            Kelola Fakultas</a></li>
     <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
             <i class="c-sidebar-nav-icon cil-calendar"></i>
             Kelola Periode AMI</a>
@@ -37,7 +37,7 @@
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/prodi-auditor">
             <i class="c-sidebar-nav-icon cil-address-book"></i>
             Kelola Penempatan Auditor</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="#">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/admin/dokumen-audit">
             <i class="c-sidebar-nav-icon cil-storage"></i>
             Dokumentasi AMI</a></li>
 

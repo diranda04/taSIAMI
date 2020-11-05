@@ -38,7 +38,7 @@
                                         <td>{{$lecturer->address}}</td>
                                         <td>{{$lecturer->telephone}}</td>
                                         <td>
-                                            <form action="{{ route('lecturer.destroy',[$lecturer->id_lecturer]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('lecturer.destroy',[$lecturer->id_lecturer]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">

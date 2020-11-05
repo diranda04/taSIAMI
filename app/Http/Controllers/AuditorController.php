@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Auditor;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuditorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(){
         $auditors = Auditor::all();
         $users = User::all();
@@ -25,32 +21,27 @@ class AuditorController extends Controller
         return view('auditor.add', compact('auditors','users'));
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus($id_auditor)
     {
-    	\Log::info($request->all());
-        $auditor = Auditor::find($request->id_auditor);
-        $auditor->status = $request->status;
-        $auditor->save();
+        $data = \DB::table('auditors')->where('id_auditor',$id_auditor)->first();
 
-        return response()->json(['success'=>'Status change successfully.']);
+        $status_sekarang = $data->status;
+
+        if($status_sekarang == 1){
+            \DB::table('auditors')->where('id_auditor',$id_auditor)->update([
+                'status'=>0
+            ]);
+        }else{
+            \DB::table('auditors')->where('id_auditor',$id_auditor)->update([
+                'status'=>1
+            ]);
+        }
+        \Session::flash('sukses','Status berhasil di ubah');
+
+        return redirect ()->route('auditor.index');
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -67,46 +58,6 @@ class AuditorController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Auditor  $auditor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Auditor $auditor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Auditor  $auditor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Auditor $auditor)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Auditor  $auditor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Auditor $auditor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Auditor  $auditor
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id_auditor)
     {
         $auditors = Auditor::find($id_auditor)->delete();

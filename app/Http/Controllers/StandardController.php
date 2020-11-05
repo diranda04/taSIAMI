@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class StandardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $standards = Standard::paginate(10);
@@ -22,22 +17,6 @@ class StandardController extends Controller
         return view ('standard.list', compact('standards'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -52,36 +31,6 @@ class StandardController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Standard  $standard
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Standard $standard)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Standard  $standard
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id_standard)
-    // {
-    //     $standard = Standard::find($id_standard);
-    //     return view ('standard.edit', compact('standards'));
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Standard  $standard
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         try {
@@ -95,12 +44,6 @@ class StandardController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Standard  $standard
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id_standard)
     {
         $standards = Standard::find($id_standard)->delete();

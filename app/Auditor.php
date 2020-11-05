@@ -18,4 +18,8 @@ class Auditor extends Model
     public function departmentAudit(){
         return $this->hasMany(DepartmentAudit::class, 'auditor_id', 'id_auditor');
     }
+
+    // public function audit(){
+    //     return $this->belongsToMany(Audit::class, 'department_audits', 'audit_id', 'auditor_id');
+    // }
 }

@@ -21,7 +21,7 @@ class Audit extends Model
     }
 
     public function departmentAudit(){
-        return $this->hasMany(DepartmentAudit::class);
+        return $this->hasMany(DepartmentAudit::class, 'audit_id', 'id_audit');
     }
 
     public function auditScore(){
@@ -35,6 +35,10 @@ class Audit extends Model
     public function correctionForm(){
         return $this->hasMany(CorrectionForm::class);
     }
+
+    // public function auditor(){
+    //     return $this->belongsToMany(Auditor::class, 'department_audits', 'audit_id', 'auditor_id');
+    // }
 
 
 }

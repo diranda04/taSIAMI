@@ -41,7 +41,7 @@
                                         <td>{{$dean->start_at}}</td>
                                         <td>{{$dean->end_at}}</td>
                                         <td>
-                                            <form action="{{ route('dean.destroy',[$dean->id_dean]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('dean.destroy',[$dean->id_dean]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
