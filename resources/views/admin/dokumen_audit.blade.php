@@ -30,7 +30,7 @@
                                                 class="btn btn-behance">
                                                 <span class="cil-print btn-icon mr-2"></span>Instrumen AMI
                                             </a>
-                                            <a href="{{ route('adminFinding.print',[$audit->id_audit]) }}"
+                                            <a href="{{ route('finding.print',[$audit->id_audit]) }}"
                                                 class="btn btn-reddit">
                                                 <span class="cil-print btn-icon mr-2"></span>Temuan audit
                                             </a>

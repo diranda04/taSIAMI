@@ -40,6 +40,17 @@ class UserController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+        $users = User::find($request->id);
+        $users -> name = $request ->input ('name');
+        $users -> username = $request ->input ('username');
+        $users -> email = $request ->input ('email');
+        $users -> role_id = $request ->input ('roleselect');
+        $users -> save();
+        return redirect()->back()->with('message', 'User berhasil diubah');
+    }
+
 
     public function destroy($id)
     {

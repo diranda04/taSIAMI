@@ -13,6 +13,7 @@ use App\Dean;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use PDF;
 use Illuminate\Http\Request;
 
@@ -35,14 +36,31 @@ class AuditController extends Controller
 
     public function prodiAudit(){
 
-        $auditors = Auth::getuser()->auditor->departmentAudit;
+        // $auditors = Auth::getuser()->auditor->departmentAudit;
+        $auditors = Department::leftJoin('audits', 'audits.department_id', '=', 'departments.id_department')
+        ->leftJoin('periodes', 'periodes.id_periode', '=', 'audits.periode_id')
+        ->leftJoin('department_audits', 'department_audits.audit_id', '=', 'audits.id_audit')
+        ->leftJoin('auditors', 'auditors.id_auditor', '=', 'department_audits.auditor_id')
+        ->where('auditor_id', Auth::user()->id)
+        ->whereDate('audit_start_at', '<', Carbon::now()->toDateString())
+        ->whereDate('audit_end_at','>', Carbon::now()->toDateString())
+        ->get();
         // dd($auditors);
         return view ('auditor.audit_prodi', compact('auditors'));
     }
 
 
     public function lihatAuditProdi(){
-        $auditees = Auth::getuser()->lecturer->auditee;
+        // $auditees = Auth::getuser()->lecturer->auditee;
+        $auditees = Department::leftJoin('audits', 'audits.department_id', '=', 'departments.id_department')
+        ->leftJoin('periodes', 'periodes.id_periode', '=', 'audits.periode_id')
+        ->leftJoin('auditees', 'auditees.department_id', '=', 'departments.id_department')
+        ->leftJoin('lecturers', 'lecturers.id_lecturer', '=', 'auditees.lecturer_id')
+        ->where('id_lecturer', Auth::user()->id)
+        ->whereDate('audit_start_at', '<', Carbon::now()->toDateString())
+        ->whereDate('audit_end_at','>', Carbon::now()->toDateString())
+        ->get();
+        // dd($auditees);
         return view ('auditee.audit_prodi', compact('auditees'));
     }
 

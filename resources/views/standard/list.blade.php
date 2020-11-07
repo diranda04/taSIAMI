@@ -41,7 +41,7 @@
                                                 <i class="cil-description"></i>
                                             </a>
                                             <a href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#editStandard" data-id_standard="{{$standard->id_standard}}"
-                                            data-name="{{$standard->name}}">
+                                            data-name="{{$standard->name}}"> 
                                                 <i class="cil-pencil"></i>
                                             </a>
                                             <form action="{{ route('standard.destroy',[$standard->id_standard]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')"

@@ -38,6 +38,8 @@
     </body>
 </html>
 
+
+
 @section('javascript')
 
 @endsection

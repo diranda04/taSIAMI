@@ -57,7 +57,7 @@ function Tanggal($date) {
         <tr>
         <td>PTK</td>
         <td>:</td>
-        <td>Program Studi UNAND <?php echo date("Y");?></td>
+        <td>Program Studi {{$departments->department_name}} {{$departments->name}} UNAND <?php echo date("Y");?></td>
         </tr>
         <tr>
         <td>Kepada</td>

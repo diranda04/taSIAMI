@@ -26,10 +26,10 @@
                                         <td class="text-center">{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y')}}</td>
                                         <td class="text-center">{{$audit->department->department_name}}</td>
                                         <td class="text-center">
-                                        <a href="{{ route('report.print',[$audit->id_audit]) }}" class="btn btn-behance">
+                                        <a href="{{ route('report.lihat',[$audit->id_audit]) }}" class="btn btn-behance">
                                         <span class="cil-print btn-icon mr-2"></span>Instrumen AMI
                                         </a>
-                                        <a href="{{ route('findingAuditor.print',[$audit->id_audit]) }}" class="btn btn-reddit">
+                                        <a href="{{ route('finding.print',[$audit->id_audit]) }}" class="btn btn-reddit">
                                         <span class="cil-print btn-icon mr-2"></span>Temuan audit
                                         </a>
                                         <a href="{{route('ptkauditor.print',[$audit->id_audit])}}" class="btn btn-tumblr">

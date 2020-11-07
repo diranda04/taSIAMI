@@ -51,18 +51,20 @@ function Tanggal($date) {
 
 
     <table style="width:100%">
+
         <tr>
             <td>Teraudit</td>
             <td>:</td>
-            <td></td>
+            <td>{{$auditees->name}}</td>
+
         </tr>
         @php $no=1; @endphp
-
+        @foreach($auditors as $auditor)
         <tr>
             <td>Auditor {{$no++}}</td>
             <td>:</td>
-            <td></td>
-
+            <td>{{$auditor->name}}</td>
+            @endforeach
         </tr>
         <tr>
             <td>Tanggal</td>

@@ -3,9 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Auth::routes();
-
-
 Route::get('/','UserLoginController@index')->name('login.index');
 Route::post('userLogin','UserLoginController@postLogin')->name('user.postlogin');
 Route::get('logout','UserLoginController@logout')->name('login.logout');
@@ -15,6 +12,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/home', 'HomeController@index')->name('home');
         Route::get('/penempatan', 'AuditController@penempatan')->name('penempatan.print');
         Route::get('/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('report.lihat');
+        Route::get('/audit-prodi/temuan-audit/print/{id_audit}', 'AuditFindingController@printFinding')->name('finding.print');
 
     Route::group(['middleware' => ['checkrole:Admin']], function () {
 
@@ -44,7 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tambah-prodi-auditor', 'DepartmentAuditController@addDepartmentAudit')->name('departmentAudit.add');
         Route::get('/admin/dokumen-audit', 'AuditController@dokumenAdmin')->name('dokumenAdmin.audit');
         Route::get('/admin/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('adminDokumen.ami');
-        Route::get('/admin/dokumen-audit/temuan-audit/print/{id_audit}', 'AuditFindingController@printFindingAdmin')->name('adminFinding.print');
         Route::get('/admin/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptkadmin.print');
 
         Route::post('/standard', 'StandardController@store')->name('standard.post');
@@ -80,7 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::patch('/standard', 'StandardController@update')->name('standard.edit');
         Route::patch('/standard_component/{id_standard}', 'StandardComponentController@update')->name('component.edit');
-        // Route::patch('/user/{id}', 'UserController@update')->name('user.edit');
+        Route::patch('/user', 'UserController@update')->name('user.edit');
         Route::patch('/question/{id_standard_component}', 'QuestionController@update')->name('question.edit');
         Route::patch('/faculties', 'FacultyController@update')->name('faculty.edit');
         Route::patch('/department/{id_faculty}', 'DepartmentController@update')->name('prodi.edit');
@@ -94,15 +91,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/auditor/PTK/{id_audit}', 'CorrectionFormController@viewPTK')->name('auditor.ptk');
         Route::get('/auditor/dokumen-audit', 'AuditController@dokumenAudit')->name('dokumen.audit');
         Route::get('/dokumen-audit/instrument-ami/print/{id_audit}', 'AuditInstrumentController@printReport')->name('report.print');
-        Route::get('/auditor/audit-prodi/temuan-audit/print/{id_audit}', 'AuditFindingController@printFindingAuditor')->name('findingAuditor.print');
         Route::get('/auditor/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptkauditor.print');
-
         Route::get('/standard-audit/{id_audit}', 'StandardController@auditorScore')->name('instrument.detail');
         Route::get('/skor_audit/{id_audit}', 'AuditScoreController@indexAuditor')->name('skoraudit.view');
         Route::get('/skor_audit/get_data/{id_audit}/','AuditScoreController@get_score')->name('skoraudit.get_data');
+
         Route::post('/temuan-audit/{id_audit}', 'AuditFindingController@store')->name('finding.post');
         Route::post('/auditor/PTK/keadaan-menyimpang/{id_audit}', 'CorrectionFormController@store')->name('devience.post');
-
         Route::post('/skor_audit/{id_audit}/{id_question}', 'AuditScoreController@scoreAuditor')->name('skorAuditor.add');
 });
 
@@ -110,15 +105,12 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/audit-prodi', 'AuditController@lihatAuditProdi')->name('lihatTemuan.audit');
         Route::get('audit-prodi/temuan-audit/{id_audit}', 'AuditFindingController@index')->name('finding.lihat');
-        Route::get('audit-prodi/temuan-audit/print/{id_audit}', 'AuditFindingController@printFinding')->name('finding.print');
         Route::get('/PTK/keadaan-menyimpang/{id_audit}', 'CorrectionFormController@auditeeDevience')->name('auditee.devience');
-
         Route::get('/PTK/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptk.print');
         Route::get('/skor_taksiran/{id_audit}', 'AuditScoreController@indexAuditee')->name('skortaksiran.view');
         Route::get('/skor_taksiran/get_data/{id_audit}/','AuditScoreController@get_score')->name('skortaksiran.get_data');
         Route::get('/berita_acara/{id_department}', 'AuditController@beritaAcara')->name('beritaAcara.audit');
         Route::get('/auditee/dokumen-audit', 'AuditController@dokumenAuditee')->name('dokumen.auditee');
-
 
         Route::post('/skor_taksiran/{id_audit}/{id_question}', 'AuditScoreController@store')->name('auditeeScore.post');
 

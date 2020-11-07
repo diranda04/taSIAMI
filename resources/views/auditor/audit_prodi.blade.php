@@ -23,23 +23,23 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($auditors as $auditor)
-                                @php $audit = $auditor->audit; @endphp
+                                <!-- @php $audit = $auditor->audit; @endphp -->
                                     <tr>
-                                        <td class="text-center">{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y')}}</td>
-                                        <td class="text-center">{{$audit->department->department_name}}</td>
+                                        <td class="text-center">{{Carbon\Carbon::parse($auditor->audit_start_at)->format('Y')}}</td>
+                                        <td class="text-center">{{$auditor->department_name}}</td>
                                         <td class="text-center">
-                                        <a href="{{ route('skoraudit.view',[$audit->id_audit]) }}" class="btn btn-danger">
+                                        <a href="{{ route('skoraudit.view',[$auditor->id_audit]) }}" class="btn btn-danger">
                                         <span class="cil-pencil btn-icon mr-2"></span> Isi
                                         </a></td>
                                         <td class="text-center">
-                                        <a href="{{ route('finding.detail',[$audit->id_audit]) }}" class="btn btn-success">
+                                        <a href="{{ route('finding.detail',[$auditor->id_audit]) }}" class="btn btn-success">
                                         <span class="cil-description btn-icon mr-2"></span>Isi Temuan audit
                                         </a></td>
                                         <td class="text-center">
-                                        <a href="{{ route('auditor.devience',[$audit->id_audit]) }}" class="btn btn-primary">
+                                        <a href="{{ route('auditor.devience',[$auditor->id_audit]) }}" class="btn btn-primary">
                                         <span class="cil-pencil btn-icon mr-2"></span> PTK-Keadaan Menyimpang
                                         </a>
-                                        <a href="{{ route('auditor.ptk',[$audit->id_audit]) }}" class="btn btn-warning">
+                                        <a href="{{ route('auditor.ptk',[$auditor->id_audit]) }}" class="btn btn-warning">
                                         <span class="cil-description btn-icon mr-2"></span>Lihat PTK
                                         </a>
                                         </td>

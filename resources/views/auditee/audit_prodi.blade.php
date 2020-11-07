@@ -24,25 +24,25 @@
                                 </thead>
                                 <tbody>
                                 @foreach ($auditees as $auditee)
-                                    @php $audit = $auditee->audit; @endphp
+                                    <!-- @php $audit = $auditee->audit; @endphp -->
                                     <tr class="text-center">
-                                        <td class="text-center">{{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y')}}</td>
-                                        <td class="text-center">{{$audit->department->department_name}}</td>
+                                        <td class="text-center">{{Carbon\Carbon::parse($auditee->audit_start_at)->format('Y')}}</td>
+                                        <td class="text-center">{{$auditee->department_name}}</td>
                                         <td>
-                                        <a href="{{ route('skortaksiran.view',[$audit->id_audit]) }}" class="btn btn-danger">
+                                        <a href="{{ route('skortaksiran.view',[$auditee->id_audit]) }}" class="btn btn-danger">
                                         <span class="cil-pencil btn-icon mr-2"></span>Isi
                                         </a></td>
-                                        <td><a href="{{ route('beritaAcara.audit',[$audit->department_id]) }}" class="btn btn-secondary">
+                                        <td><a href="{{ route('beritaAcara.audit',[$auditee->department_id]) }}" class="btn btn-secondary">
                                         <span class="cil-print btn-icon mr-2"></span>Cetak
                                         </a></td>
-                                        <td><a href="{{ route('finding.print',[$audit->id_audit]) }}" class="btn btn-success">
+                                        <td><a href="{{ route('finding.print',[$auditee->id_audit]) }}" class="btn btn-success">
                                         <span class="cil-description btn-icon mr-2"></span>Temuan audit
                                         </a></td>
                                         <td>
-                                        <a href="{{ route('auditee.devience',[$audit->id_audit]) }}" class="btn btn-primary">
+                                        <a href="{{ route('auditee.devience',[$auditee->id_audit]) }}" class="btn btn-primary">
                                         <span class="cil-pencil btn-icon mr-2"></span> PTK
                                         </a>
-                                        <a href="{{route('ptk.print',[$audit->id_audit])}}" class="btn btn-secondary">
+                                        <a href="{{route('ptk.print',[$auditee->id_audit])}}" class="btn btn-secondary">
                                         <span class="cil-print btn-icon mr-2"></span>Print PTK
                                         </a>
                                         </td>

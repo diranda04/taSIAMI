@@ -65,18 +65,12 @@
                             </button>
                         </div>
                         <div class="col-8 text-right">
-                            <a class="btn btn-link px-0" href="#">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
+
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="card-footer p-4 d-lg-none">
-                <div class="col-12 text-right">
-                    <a class="btn btn-outline-primary btn-block mt-3" href="#">{{ __('Register') }}</a>
-                </div>
-            </div>
+
         </div>
         <div class="card text-white bg-primary py-5 d-md-down-none">
             <div class="card-body text-center">
@@ -84,7 +78,7 @@
                 <img src= "{{ ('assets/img/unand.png') }}" width="100" height="150" class="img-fluid" alt="Responsive image">
                     <h2>{{ __('SIAMI') }}</h2>
                     <p>Sistem Informasi Audit Mutu Internal Universitas Andalas</p>
-                    <a class="btn btn-primary active mt-2" href="#">{{ __('Register Now!') }}</a>
+
                 </div>
             </div>
         </div>

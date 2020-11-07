@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CorrectionForm;
 use App\Audit;
+use App\Department;
 
 use PDF;
 use Illuminate\Http\Request;
@@ -24,10 +25,12 @@ class CorrectionFormController extends Controller
     public function printPTK($id_audit)
     {
         $correction_forms = CorrectionForm::where('audit_id',$id_audit)->get();
-
-
+        $departments = Department::leftJoin('audits', 'audits.department_id', '=', 'departments.id_department')
+        ->leftJoin('faculties', 'faculties.id_faculty', '=', 'departments.faculty_id')
+        ->where('id_audit',$id_audit)->first();
+        // dd($departments);
         view()->share('correction_forms',$correction_forms);
-        $pdf = PDF::loadview('ptk_print',['correction_forms'=> $correction_forms]);
+        $pdf = PDF::loadview('ptk_print',['correction_forms'=> $correction_forms, 'departments'=>$departments]);
         return $pdf->stream();
     }
 

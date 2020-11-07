@@ -38,16 +38,8 @@
                         </div>
                         <input id="password" type="password" class="form-control" name="password" placeholder="{{ __('Password') }}" required>
 
-
                     </div>
                     <div class="input-group mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
@@ -55,11 +47,7 @@
                                 {{ __('Login') }}
                             </button>
                         </div>
-                        <div class="col-8 text-right">
-                            <a class="btn btn-link px-0" href="#">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -70,7 +58,7 @@
                 <img src= "{{ ('assets/img/unand.png') }}" width="100" height="150" class="img-fluid" alt="Responsive image">
                     <h2>{{ __('SIAMI') }}</h2>
                     <p>Sistem Informasi Audit Mutu Internal Universitas Andalas</p>
-                    <a class="btn btn-primary active mt-2" href="#">{{ __('Register Now!') }}</a>
+
                 </div>
             </div>
         </div>
