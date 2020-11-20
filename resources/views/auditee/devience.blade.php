@@ -24,11 +24,10 @@
                                 </thead>
                                 <tbody>
 
-                                <?php $no = 0;?>
                                 @foreach ($correction_forms as $correction_form)
-                                <?php $no++ ;?>
+
                                     <tr>
-                                        <td>{{$no}}</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$correction_form->devience}}</td>
                                         <td>{{$correction_form->causes}}</td>
                                         <td>{{$correction_form->plan}}</td>

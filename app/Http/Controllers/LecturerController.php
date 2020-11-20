@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lecturer;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class LecturerController extends Controller
@@ -16,7 +17,13 @@ class LecturerController extends Controller
 
     public function addlecturer(){
         $lecturers = Lecturer::all();
-        $users = User::all();
+        $users = User::where('role_id', '!=', 1)->
+        whereNotExists(function($query){
+            $query->select(DB::raw(1))
+                    ->from('lecturers')
+                    ->whereRaw('lecturers.id_lecturer = users.id');
+            })
+            ->get();
         return view('lecturer.add', compact('lecturers','users'));
     }
 

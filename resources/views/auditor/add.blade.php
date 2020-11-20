@@ -22,11 +22,11 @@
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Status</label>
-                  <input type="text" class="form-control-file" id="status" name="status" value="1">
+                  <input type="text" class="form-control-file" id="status" name="status" value="1" required>
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Tahun</label>
-                  <input type="text" class="form-control-file" id="start_at" name="start_at">
+                  <input type="text" class="form-control-file" id="start_at" name="start_at" required>
               </div>
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                   <button type="submit" class="btn btn-primary">Save changes</button>

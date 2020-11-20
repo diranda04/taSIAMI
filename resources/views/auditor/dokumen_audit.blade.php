@@ -52,5 +52,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

@@ -7,6 +7,7 @@ use App\Standard;
 use App\Department;
 use App\Periode;
 use App\Question;
+use Auth;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -60,10 +61,11 @@ class AuditInstrumentController extends Controller
     }
 
     public function lihatReport($id_audit){
-
+        try {
         $standards = Standard:: all();
         $questions = Question::select('questions.id_question', 'questions.desc','audit_scores.id_audit_score','audit_scores.score_auditee', 'audit_scores.score_auditor')
-        ->leftjoin('audit_scores','questions.id_question','=','audit_scores.question_id')->paginate(10);
+        ->leftjoin('audit_scores','questions.id_question','=','audit_scores.question_id')->where('audit_id', $id_audit)->paginate(10);
+
         $rata_rata = 0;
         $data = [];
         $standards_title = [];
@@ -87,11 +89,14 @@ class AuditInstrumentController extends Controller
             $standards_title[] = $std->name;
             $graph_avg[] = round($rata_rata,2);
             $rata_rata = 0;
-
-
         }
 
         return view ('audit.lihat_report',['standards'=> $data ,'graph_avg' => $graph_avg ,'standards_title' => $standards_title, 'questions'=>$questions]);
+        } catch (\Throwable $th) {
+            \Session::flash('sukses','Pengisian skor audit belum diselesaikan');
+            return redirect()->back();
+        }
+
     }
 
 

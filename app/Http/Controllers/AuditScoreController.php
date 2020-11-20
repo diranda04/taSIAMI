@@ -8,6 +8,7 @@ use App\Question;
 use App\StandardComponent;
 use App\Standard;
 use App\ScoreDetail;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,17 +16,38 @@ class AuditScoreController extends Controller
 {
     public function indexAuditee($id_audit)
     {
-        $audit_scores = AuditScore::where('audit_id',$id_audit)->get();
-        $questions = Question::select('questions.id_question', 'questions.desc','audit_scores.id_audit_score','audit_scores.score_auditee', 'audit_scores.score_auditor')->leftjoin('audit_scores','questions.id_question','=','audit_scores.question_id')->paginate(10);
+        $audits = Audit::select('questions.id_question', 'questions.desc', 'audits.id_audit', 'audit_scores.id_audit_score',DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditee else '' end as score_auditee "), DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditor else '' end as score_auditor "))
+        ->join('periodes', 'periodes.id_periode','=', 'audits.periode_id')
+        ->join('audit_instruments', 'audit_instruments.periode_id', 'periodes.id_periode')
+        ->join('standards', 'standards.id_standard', '=', 'audit_instruments.standard_id')
+        ->join('standard_components', 'standard_components.standard_id', '=', 'standards.id_standard')
+        ->join('questions', 'questions.standard_component_id', '=', 'standard_components.id_standard_component')
+        ->where('id_audit', $id_audit)
+        ->leftjoin('audit_scores', 'questions.id_question','=','audit_scores.question_id')
+        // ->get();
+        ->paginate(10);
+
         $score_details = ScoreDetail::all();
-        return view ('auditee.input_skor', compact('audit_scores','questions','score_details', 'id_audit'));
+        return view ('auditee.input_skor', compact('audits','score_details', 'id_audit'));
     }
     public function indexAuditor($id_audit)
     {
-        $audit_scores = AuditScore::where('audit_id',$id_audit)->get();
-        $questions = Question::select('questions.id_question', 'questions.desc','audit_scores.id_audit_score','audit_scores.score_auditee', 'audit_scores.score_auditor')->leftjoin('audit_scores','questions.id_question','=','audit_scores.question_id')->paginate(10);
+        $audits = Audit::select('questions.id_question', 'questions.desc', 'audits.id_audit', 'audit_scores.id_audit_score',DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditee else '' end as score_auditee "), DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditor else '' end as score_auditor "))
+        ->join('periodes', 'periodes.id_periode','=', 'audits.periode_id')
+        ->join('audit_instruments', 'audit_instruments.periode_id', 'periodes.id_periode')
+        ->join('standards', 'standards.id_standard', '=', 'audit_instruments.standard_id')
+        ->join('standard_components', 'standard_components.standard_id', '=', 'standards.id_standard')
+        ->join('questions', 'questions.standard_component_id', '=', 'standard_components.id_standard_component')
+        ->where('id_audit', $id_audit)
+        ->leftjoin('audit_scores', 'questions.id_question','=','audit_scores.question_id')
+
+        // ->get();
+        ->paginate(10);
+        // dd($audits);
+
         $score_details = ScoreDetail::all();
-        return view ('auditor.input_skor', compact('audit_scores','questions','score_details', 'id_audit'));
+        $audit_scores = AuditScore::where('audit_id', $id_audit)->get();
+        return view ('auditor.input_skor', compact('audits','score_details','audit_scores', 'id_audit'));
     }
 
     public function get_score($id)
@@ -50,9 +72,11 @@ class AuditScoreController extends Controller
                 'score_auditee' => $request->input('score_auditee'),
             ]);
             $audit_scores->save();
+            \Session::flash('sukses','Berhasil menambahkan skor taksiran');
             return redirect()->back();
         }else{
-            return redirect()->back()->with('message', 'Data sudah ada');
+            \Session::flash('sukses','Data sudah ada');
+            return redirect()->back();
         }
 
     }
@@ -74,9 +98,11 @@ class AuditScoreController extends Controller
 
             $audit_scores -> score_auditor = $request -> input ('score_auditor');
             $audit_scores->save();
+            \Session::flash('sukses','Berhasil menambahkan skor audit');
             return redirect()->back();
         }else{
-            return redirect()->back()->with('message', 'Data sudah ada');
+            \Session::flash('sukses','Data sudah ada');
+            return redirect()->back();
         }
     }
 

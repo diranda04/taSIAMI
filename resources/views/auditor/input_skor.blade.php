@@ -8,14 +8,6 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
-                @if (session('message'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{ session('message')}}
-                    </div>
-                    @endif
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
                         <div class="card-body">
@@ -31,19 +23,19 @@
                                         </tr>
                                     </thead>
                                 <tbody>
-                                    <?php $no = 0;?>
-                                    @foreach ($questions as $question)
-                                    <?php $no++ ;?>
+
+                                    @foreach ($audits as $audit)
+
                                     <tr>
-                                        <th scope="row">{{$no}}</th>
-                                        <td>{{$question->desc}}</td>
-                                        <td>{{$question->score_auditee}}</td>
-                                        <td>{{$question->score_auditor}}</td>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{$audit->desc}}</td>
+                                        <td>{{$audit->score_auditee}}</td>
+                                        <td>{{$audit->score_auditor}}</td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal"
                                                 data-target="#viewDetail" id='detailSkor'
-                                                data-id="{{$question->id_question}}"
-                                                onClick="setIdQuestion('{{$question->id_question}}')">
+                                                data-id="{{$audit->id_question}}"
+                                                onClick="setIdQuestion('{{$audit->id_question}}')">
                                                 <i class="cil-pencil"></i>
                                             </button>
                                         </td>
@@ -51,7 +43,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $questions->links() }}
+                            {{ $audits->links() }}
                         </div>
                     </div>
                 </div>
@@ -113,7 +105,6 @@
 
     function addScore(id_question) {
         $('#addScore').modal('show');
-        // var baseUrl="{{url('/')}}"+"/skor_audit"+"/{{$id_audit}}"+"/"+id_question;
         $('#auditorScore').attr('action', baseUrl);
     }
     $(document).on("click", "#detailSkor", function () {
@@ -138,5 +129,14 @@
         });
     });
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
 </script>
 @endsection

@@ -17,7 +17,12 @@ class AuditorController extends Controller
 
     public function addAuditor(){
         $auditors = Auditor::all();
-        $users = User::all();
+        $users = User:: where('role_id', '=', 2)->whereNotExists(function($query){
+            $query->select(DB::raw(1))
+                    ->from('auditors')
+                    ->whereRaw('auditors.id_auditor = users.id');
+            })
+            ->get();
         return view('auditor.add', compact('auditors','users'));
     }
 
@@ -44,18 +49,15 @@ class AuditorController extends Controller
 
     public function store(Request $request)
     {
-        try {
             $auditors = new auditor ([
                 'id_auditor' => $request->input('auditorSelect'),
                 'status' => $request->input('status'),
                 'start_at' => $request->input('start_at'),
 
             ]);
+
             $auditors->save();
             return redirect ()->route('auditor.index');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
     }
 
     public function destroy($id_auditor)

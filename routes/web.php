@@ -99,6 +99,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/temuan-audit/{id_audit}', 'AuditFindingController@store')->name('finding.post');
         Route::post('/auditor/PTK/keadaan-menyimpang/{id_audit}', 'CorrectionFormController@store')->name('devience.post');
         Route::post('/skor_audit/{id_audit}/{id_question}', 'AuditScoreController@scoreAuditor')->name('skorAuditor.add');
+
+        Route::delete('/temuan-audit/{id_audit_finding}', 'AuditFindingController@destroy')->name('finding.destroy');
+        Route::delete('/auditor/PTK/keadaan-menyimpang/{id_correction_form}', 'CorrectionFormController@destroy')->name('devience.destroy');
 });
 
     Route::group(['middleware' => ['checkrole:Auditee']], function () {

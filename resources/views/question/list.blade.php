@@ -8,33 +8,25 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
                   <div class="card">
                     <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
                     <div class="card-body">
                     <!-- <a href="{{ url ('standards/create')}}" class="btn btn-success mb-2">Add Standard</a> -->
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addQuestion">
-                    Add Question
+                    Tambah Indikator Penilaain
                     </button>
                       <table class="table table-responsive-sm table-striped">
                         <thead>
                           <tr>
-                            <th>ID Question</th>
-                            <th>Question</th>
+                            <th>No</th>
+                            <th>Indikator Penilaian</th>
                             <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($questions as $question)
                           <tr>
-                          <th scope="row">{{$question->id_question}}</th>
+                          <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{$question->desc}}</td>
                             <td>
                             <a href="{{ route('score_detail.detail',[$question->id_question]) }}" class= "btn btn-success">
@@ -74,7 +66,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addStandardLabel">Add Question</h5>
+        <h5 class="modal-title" id="addStandardLabel">Tambah Indikator Penilaian</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -82,10 +74,6 @@
       <div class="modal-body">
         <form action="{{route('question.post',[$id_standard_component])}}" method="POST">
         @csrf
-          <div class="form-group">
-            <label for="formGroupExampleInput">ID Question</label>
-            <input type="text" name= "id_question" class="form-control" id="id_question" placeholder="">
-          </div>
           <div class="form-group">
             <label for="formGroupExampleInput2">Deskribsi</label>
             <input type="int" name= "desc" class="form-control" id="desc" placeholder="">
@@ -106,7 +94,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Standard</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Question</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -149,5 +137,15 @@
     })
 
   })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
 </script>
 @endsection

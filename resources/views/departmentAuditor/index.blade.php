@@ -9,7 +9,7 @@
 
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
+                        <div class="card-header"><i class="fa fa-align-justify"></i>Auditor Program Studi</div>
                         <div class="card-body">
                         <a class="btn btn-success" role="button" href="{{route('departmentAudit.add')}}">
                             Tambahkan Auditor Prodi
@@ -52,5 +52,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

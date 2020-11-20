@@ -16,20 +16,15 @@ class DepartmentController extends Controller
 
     public function store(Request $request, $id_faculty)
     {
-        try {
             $departments = new Department ([
-                'id_department' => $request->input('id_department'),
                 'department_name' => $request->input('department_name'),
                 'faculty_id' => $id_faculty,
                 'accreditation' => $request->input('accreditation'),
                 'sk_num' => $request->input('sk_num'),
-
             ]);
             $departments -> save();
-            return redirect()->back()->with('message', 'Program studi berhasil ditambahkan');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+            \Session::flash('sukses','Program studi berhasil ditambahkan');
+            return redirect()->back();
     }
 
     public function detailFaculty($id_faculty){
@@ -44,15 +39,17 @@ class DepartmentController extends Controller
             $departments = Department::find($request->id_department);
             $departments -> department_name = $request ->input ('department_name');
             $departments -> save();
-            return redirect()->back()->with('message', 'Program Studi berhasil diubah');
+            \Session::flash('sukses','Program Studi berhasil diubah');
+            return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
         }
     }
 
-    public function destroy(Department $department)
+    public function destroy($id_department)
     {
         $dapertments = Department::find($id_department)->delete();
-        return redirect()->back()->with('message', 'Program studi berhasil dihapus');
+        \Session::flash('sukses','Program studi berhasil hapus');
+        return redirect()->back();
     }
 }

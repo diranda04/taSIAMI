@@ -16,12 +16,12 @@ class StandardComponentController extends Controller
     public function store(Request $request, $id_standard)
     {
             $standard_components = new StandardComponent ([
-                'id_standard_component' => $request->input('id_standard_component'),
                 'desc' => $request->input('desc'),
                 'standard_id' => $id_standard,
             ]);
             $standard_components -> save();
-            return redirect()->back()->with('message', 'Komponen standar berhasil ditambahkan');
+            \Session::flash('sukses','Komponen standar berhasil ditambahkan');
+            return redirect()->back();
     }
 
     public function detailStandard($id_standard){
@@ -31,19 +31,17 @@ class StandardComponentController extends Controller
 
     public function update(Request $request)
     {
-        try {
             $standard_components = StandardComponent::find($request->id_standard_component);
             $standard_components -> desc = $request ->input ('desc');
             $standard_components -> save();
-            return redirect()->back()->with('message', 'Komponen Standar berhasil diubah');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+            \Session::flash('sukses','Komponen standar berhasil diubah');
+            return redirect()->back();
     }
 
     public function destroy($id_standard_component)
     {
         $standard_components = StandardComponent::find($id_standard_component)->delete();
-        return redirect()->back()->with('message', 'Komponen standar berhasil dihapus');
+        \Session::flash('sukses','Komponen standar berhasil dihapus');
+        return redirect()->back();
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Audit extends Model
 {
@@ -36,9 +37,16 @@ class Audit extends Model
         return $this->hasMany(CorrectionForm::class);
     }
 
-    // public function auditor(){
-    //     return $this->belongsToMany(Auditor::class, 'department_audits', 'audit_id', 'auditor_id');
-    // }
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'id_audit' => [
+                'format' => 'AD?',
+                'length' => 3
+            ]
+        ];
+    }
 
 
 }

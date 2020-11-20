@@ -12,27 +12,27 @@ class DepartmentAuditController extends Controller
     public function index()
     {
         $department_audits = DepartmentAudit:: all();
-        $auditors = Auditor:: all();
-        $audits = Audit:: all();
-        return view ('departmentAuditor.index', compact('department_audits','auditors','audits'));
+
+        return view ('departmentAuditor.index', compact('department_audits'));
     }
 
     public function addDepartmentAudit(){
-        $department_audits = DepartmentAudit:: all();
-        $auditors = Auditor:: all();
+
+        $auditors = Auditor::where('status', 1)->get();
         $audits = Audit:: all();
-        return view ('departmentAuditor.add', compact('department_audits','auditors','audits'));
+
+        return view ('departmentAuditor.add', compact('auditors','audits'));
     }
 
     public function store(Request $request)
     {
         try {
             $department_audits = DepartmentAudit::create ([
-                'id_department_audit' => $request->input('id_department_audit'),
+
                 'auditor_id' => $request->input('auditorSelect'),
                 'audit_id' => $request->input('auditSelect')
             ]);
-
+            \Session::flash('sukses','Auditor prodi berhasil ditambahkan');
             return redirect ()->route('departmentAudit.index');
         } catch (\Throwable $th) {
             return $th;
@@ -42,6 +42,7 @@ class DepartmentAuditController extends Controller
     public function destroy($id_department_audit)
     {
         $department_audits = DepartmentAudit::find($id_department_audit)->delete();
+        \Session::flash('sukses','Auditor prodi berhasil dihapus');
         return redirect()->back();
     }
 }

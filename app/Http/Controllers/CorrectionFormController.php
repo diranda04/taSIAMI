@@ -36,36 +36,29 @@ class CorrectionFormController extends Controller
 
     public function store(Request $request, $id_audit)
     {
-        // dd($request->all());
-        try {
             $correction_forms = CorrectionForm::create ([
-                'id_correction_form' => $request->input('id_correction_form'),
                 'audit_id' => $id_audit,
                 'devience' => $request->input('devience'),
             ]);
-
+            \Session::flash('sukses','Keadaan menyimpang berhasil ditambahkan');
             return redirect()->back();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
     }
 
     public function update(Request $request)
     {
-        try {
             $correction_forms = CorrectionForm::find($request->id_correction_form);
             $correction_forms -> devience = $request ->input ('devience');
             $correction_forms -> causes = $request ->input ('causes');
             $correction_forms -> plan = $request ->input ('plan');
             $correction_forms -> save();
+            \Session::flash('sukses','Permintaan tindakan koreksi berhasil diisi');
             return redirect()->back();
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
     }
 
-    public function destroy(CorrectionForm $correctionForm)
+    public function destroy($id_correction_form)
     {
-        //
+        $correction_forms = CorrectionForm::find($id_correction_form)->delete();
+        \Session::flash('sukses','Keadaan menyimpang berhasil dihapus');
+        return redirect()->back();
     }
 }

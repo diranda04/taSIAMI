@@ -22,16 +22,13 @@ class AuditController extends Controller
     public function index()
     {
         $audits = Audit:: all();
-        $periodes = Periode:: all();
-        $departments = Department:: all();
-        return view ('audit.index', compact('audits','periodes','departments'));
+        return view ('audit.index', compact('audits'));
     }
 
     public function addAudit(){
-        $audits = Audit:: all();
         $periodes = Periode:: all();
         $departments = Department:: all();
-        return view ('audit.add', compact('audits','periodes','departments'));
+        return view ('audit.add', compact('periodes','departments'));
     }
 
     public function prodiAudit(){
@@ -101,14 +98,18 @@ class AuditController extends Controller
         $auditors =DepartmentAudit::join("auditors", "department_audits.auditor_id", "=","auditors.id_auditor")->
         join("audits", "department_audits.audit_id", "=", "audits.id_audit")->join("users", "auditors.id_auditor", "=", "users.id")->
         join("departments", "audits.department_id","=", "departments.id_department")->
-        join(DB::raw("(select * from periodes order by audit_start_at asc limit 1) as period"), "audits.periode_id","=", "period.id_periode")->
+        join("periodes", "audits.periode_id","=", "periodes.id_periode")
+        ->whereDate('audit_start_at', '<', Carbon::now()->toDateString())
+        ->whereDate('audit_end_at','>', Carbon::now()->toDateString())->
         get();
 
         // get();
         $auditees =Auditee::join("lecturers", "lecturers.id_lecturer", "=", "auditees.lecturer_id")->
         join("users", "lecturers.id_lecturer", "=", "users.id")->join("departments", "departments.id_department", "=", "auditees.department_id")->
         join("audits", "departments.id_department", "=", "audits.department_id")->
-        join(DB::raw("(select * from periodes order by audit_start_at asc limit 1) as period"), "audits.periode_id","=", "period.id_periode")->
+        join("periodes", "audits.periode_id","=", "periodes.id_periode")
+        ->whereDate('audit_start_at', '<', Carbon::now()->toDateString())
+        ->whereDate('audit_end_at','>', Carbon::now()->toDateString())->
         get();
 
         // dd($auditees);
@@ -121,22 +122,19 @@ class AuditController extends Controller
 
     public function store(Request $request)
     {
-        try {
             $audits = Audit::create ([
-                'id_audit' => $request->input('id_audit'),
                 'periode_id' => $request->input('periodeSelect'),
                 'department_id' => $request->input('prodiSelect')
             ]);
             $audits->save();
+            \Session::flash('sukses','Periode audit prodi berhasil ditambahkan');
             return redirect ()->route('audit.index');
-        } catch (\Throwable $th) {
-            return $th;
-        }
     }
 
     public function destroy($id_audit)
     {
         $audits = Audit::find($id_audit)->delete();
-        return redirect()->back();
+        \Session::flash('sukses','Periode audit prodi berhasil dihapus');
+        return redirect()->route('audit.index');
     }
 }

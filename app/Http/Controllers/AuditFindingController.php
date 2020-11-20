@@ -46,22 +46,21 @@ class AuditFindingController extends Controller
 
     public function store(Request $request, $id_audit)
     {
-        try {
+
             $audit_findings = new AuditFinding ([
-                'id_audit_finding' => $request->input('id_audit_finding'),
                 'audit_id' => $id_audit,
                 'desc' => $request->input('desc'),
-
             ]);
             $audit_findings->save();
-            return redirect()->back()->with('message', 'Temuan audit berhasil ditambahkan');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+            \Session::flash('sukses','Temuan Audit berhasil ditambahkan');
+            return redirect()->back();
+
     }
 
-    public function destroy(AuditFinding $auditFinding)
+    public function destroy($id_audit_finding)
     {
-        //
+        $audit_findings = AuditFinding::find($id_audit_finding)->delete();
+        \Session::flash('sukses','Temuan Audit berhasil dihapus');
+        return redirect()->back();
     }
 }

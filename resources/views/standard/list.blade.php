@@ -8,14 +8,6 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
                         <div class="card-body">
@@ -25,7 +17,7 @@
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID Standar</th>
+                                        <th>No</th>
                                         <th>Standar</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -33,7 +25,7 @@
                                 <tbody>
                                     @foreach ($standards as $standard)
                                     <tr>
-                                        <th scope="row">{{$standard->id_standard }}</th>
+                                        <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{$standard->name}}</td>
                                         <td>
                                             <a href="{{ route('standard.detail',[$standard->id_standard]) }}"
@@ -41,7 +33,7 @@
                                                 <i class="cil-description"></i>
                                             </a>
                                             <a href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#editStandard" data-id_standard="{{$standard->id_standard}}"
-                                            data-name="{{$standard->name}}"> 
+                                            data-name="{{$standard->name}}">
                                                 <i class="cil-pencil"></i>
                                             </a>
                                             <form action="{{ route('standard.destroy',[$standard->id_standard]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')"
@@ -87,10 +79,6 @@
       <div class="modal-body">
       <form action="{{route('standard.post')}}" method="POST">
       @csrf
-      <div class="form-group">
-        <label for="exampleFormControlFile1">ID Standard</label>
-        <input type="text" class="form-control-file" id="id_standard" name="id_standard">
-      </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Keterangan</label>
         <input type="text" class="form-control-file" id="name" name="name">
@@ -153,5 +141,14 @@
   })
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 
 @endsection

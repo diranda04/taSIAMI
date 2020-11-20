@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Question extends Model
 {
@@ -22,6 +23,17 @@ class Question extends Model
 
     public function scoreDetail(){
         return $this->hasMany(ScoreDetail::class);
+    }
+
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'id_question' => [
+                'format' => 'Q?', // autonumber format. '?' will be replaced with the generated number.
+                'length' => 4 // The number of digits in an autonumber
+            ]
+        ];
     }
 
 }

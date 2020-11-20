@@ -19,34 +19,27 @@ class StandardController extends Controller
 
     public function store(Request $request)
     {
-        try {
             $standards = new Standard ([
-                'id_standard' => $request->input('id_standard'),
                 'name' => $request->input('name'),
             ]);
             $standards -> save();
-            return redirect()->back()->with('message', 'Standar berhasil ditambahkan');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+            \Session::flash('sukses','Standar berhasil di tambahkan');
+            return redirect()->back();
     }
 
     public function update(Request $request)
     {
-        try {
             $standards = Standard::find($request->id_standard);
             $standards -> name = $request ->input ('name');
             $standards -> save();
-            return redirect()->back()->with('message', 'Standar berhasil diubah');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
+            \Session::flash('sukses','Standar berhasil diubah');
+            return redirect()->back();
     }
 
     public function destroy($id_standard)
     {
         $standards = Standard::find($id_standard)->delete();
-        return redirect()->back()->with('message', 'Standar berhasil dihapus');
+        \Session::flash('sukses','Standar berhasil hapus');
+        return redirect()->back();
     }
 }

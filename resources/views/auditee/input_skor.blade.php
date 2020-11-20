@@ -30,18 +30,16 @@
                                         </tr>
                                     </thead>
                                 <tbody>
-                                    <?php $no = 0;?>
-                                    @foreach ($questions as $question)
-                                    <?php $no++ ;?>
+                                    @foreach ($audits as $audit)
                                     <tr>
-                                        <th scope="row">{{$no}}</th>
-                                        <td>{{$question->desc}}</td>
-                                        <td>{{$question->score_auditee}}</td>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{$audit->desc}}</td>
+                                        <td>{{$audit->score_auditee}}</td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal"
                                                 data-target="#viewDetail" id='detailSkor'
-                                                data-id="{{$question->id_question}}"
-                                                onClick="setIdQuestion('{{$question->id_question}}')">
+                                                data-id="{{$audit->id_audit}}"
+                                                onClick="setIdQuestion('{{$audit->id_question}}')">
                                                 <i class="cil-pencil"></i>
                                             </button>
                                         </td>
@@ -49,7 +47,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $questions->links() }}
+                            {{ $audits->links() }}
                         </div>
                     </div>
                 </div>
@@ -110,7 +108,6 @@
 
     function addScore() {
         $('#addScore').modal('show');
-        //var baseUrl="{{url('/')}}"+"/skor_taksiran"+"/{{$id_audit}}"+"/"+id_question;
         $('#auditeeScore').attr('action', baseUrl);
     }
 
@@ -137,4 +134,5 @@
     });
 
 </script>
+
 @endsection

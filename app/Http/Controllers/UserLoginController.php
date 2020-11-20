@@ -19,7 +19,7 @@ class UserLoginController extends Controller
     }
     public function postLogin(Request $request){
         {
-            
+
             $request->validate([
                 'login'  => 'required',
                 'password' => 'required',

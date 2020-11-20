@@ -8,43 +8,30 @@
             <div class="row">
                 <!-- /.col-->
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Department</div>
+                        <div class="card-header"><i class="fa fa-align-justify"></i>Program Studi</div>
                         <div class="card-body">
                             <!-- <a href="{{ url ('standards/create')}}" class="btn btn-success mb-2">Add Standard</a> -->
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDepartment">
-                                Add Department
+                                Tambah Program Studi
                             </button>
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID Prodi</th>
+                                        <th>No</th>
                                         <th>Nama Prodi</th>
-
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($departments as $department)
                                     <tr>
-                                        <th scope="row">{{$department->id_department }}</th>
+                                        <th scope="row">{{$loop->iteration }}</th>
                                         <td>{{$department->department_name}}</td>
 
                                         <td>
-                                            <!-- <a href="{{ url('department/'.$department->id_department) }}"
-                                                class="btn btn-success">
-                                                Daftar Prodi
-                                            </a> -->
                                             <a href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#editDepartment" data-id_department="{{$department->id_department}}"
-                                            data-name="{{$department->name}}">
+                                            data-department_name="{{$department->department_name}}">
                                                 <i class="cil-pencil"></i>
                                             </a>
                                             <form action="{{ route('department.destroy',[$department->id_department]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
@@ -81,7 +68,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add department</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambahkan Prgoram Studi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,23 +77,17 @@
       <form action="{{route('prodi.post',[$id_faculty])}}" method="POST">
       @csrf
       <div class="form-group">
-        <label for="exampleFormControlFile1">ID Prodi</label>
-        <input type="text" class="form-control-file" id="id_department" name="id_department">
-      </div>
-      <div class="form-group">
         <label for="exampleFormControlFile1">Nama</label>
-        <input type="text" class="form-control-file" id="department_name" name="department_name">
+        <input type="text" class="form-control-file" id="department_name" name="department_name" required>
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Akreditasi</label>
-        <input type="text" class="form-control-file" id="accreditation" name="accreditation">
+        <input type="text" class="form-control-file" id="accreditation" name="accreditation" required>
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">No.SK/Link</label>
         <input type="text" class="form-control-file" id="sk_num" name="sk_num">
       </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -140,8 +121,6 @@
         <label for="exampleFormControlFile1">Nama Prodi</label>
         <input type="text" class="form-control-file" id="edit_name" name="department_name">
       </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -165,5 +144,15 @@
     })
 
   })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
 </script>
 @endsection

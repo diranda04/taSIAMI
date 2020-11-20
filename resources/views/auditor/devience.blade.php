@@ -24,14 +24,14 @@
                                 </thead>
                                 <tbody>
 
-                                <?php $no = 0;?>
+
                                 @foreach ($correction_forms as $correction_form)
-                                <?php $no++ ;?>
+
                                     <tr>
-                                        <td>{{$no}}</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$correction_form->devience}}</td>
                                         <td>
-                                            <form action="#" method="post" class="d-inline">
+                                        <form action="{{ route('devience.destroy',[$correction_form->id_correction_form]) }}"  onclick="return confirm('Anda yakin menghapus data ?')" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -67,10 +67,6 @@
       <div class="modal-body">
         <form action="{{route('devience.post',[$id_audit])}}" method="POST">
         @csrf
-        <div class="form-group" >
-                  <label for="exampleFormControlFile1">ID PTK</label>
-                  <input type="text" class="form-control-file" id="id_correction_form" name="id_correction_form">
-              </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Keadaan Menyimpang</label>
                   <input type="text" class="form-control-file" id="devience" name="devience">
@@ -85,7 +81,14 @@
   </div>
 </div>
 
-
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

@@ -7,14 +7,7 @@
         <div class="fade-in">
             <div class="row">
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
+
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Daftar User</div>
                         <div class="card-body">
@@ -90,7 +83,7 @@
       @method('PATCH')
       <div class="form-group">
         <label for="exampleFormControlFile1">ID User</label>
-        <input type="text" class="form-control-file" id="edit_id" name="id_user">
+        <input type="text" class="form-control-file" id="edit_id" name="id">
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Name</label>
@@ -142,7 +135,15 @@
 
   })
 </script>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 
 @endsection
 

@@ -33,7 +33,7 @@
                                         <td>{{$auditee->start_at}}</td>
                                         <td>{{$auditee->end_at}}</td>
                                         <td>
-                                            <form action="{{ route('auditee.destroy',[$auditee->id_auditee]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('auditee.destroy',[$auditee->id_auditee]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -58,5 +58,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

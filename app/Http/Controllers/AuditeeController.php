@@ -12,25 +12,20 @@ class AuditeeController extends Controller
 {
     public function index(){
         $auditees = Auditee::all();
-        $lecturers = Lecturer::all();
-        $users = User::all();
-        $departments = Department::all();
-        return view('auditee.index', compact('auditees','lecturers','users','departments'));
+        return view('auditee.index', compact('auditees'));
     }
 
     public function addAuditee(){
-        $auditees = Auditee::all();
-        $lecturers = Lecturer::all();
-        $users = User::all();
+        $lecturers = Lecturer::leftJoin('users', 'users.id', '=', 'lecturers.id_lecturer')->
+        where('role_id', '=', 3)->get(); 
         $departments = Department::all();
-        return view('auditee.add', compact('auditees','lecturers','users','departments'));
+        return view('auditee.add', compact('lecturers','departments'));
     }
 
     public function store(Request $request)
     {
-        try {
             $auditees = new Auditee ([
-                'id_auditee' => $request->input('id_auditee'),
+
                 'lecturer_id' => $request->input('lecturerSelect'),
                 'department_id' => $request->input('departmentSelect'),
                 'start_at' => $request->input('start_at'),
@@ -38,15 +33,15 @@ class AuditeeController extends Controller
 
             ]);
             $auditees->save();
+            \Session::flash('sukses','Ketua Jurusan berhasil ditambahkan');
             return redirect ()->route('auditee.index');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+
     }
 
     public function destroy($id_auditee)
     {
         $auditees = Auditee::find($id_auditee)->delete();
+        \Session::flash('sukses','Ketua Jurusan berhasil dihapus');
         return redirect()->back();
     }
 }

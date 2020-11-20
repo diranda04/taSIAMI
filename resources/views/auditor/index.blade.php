@@ -35,7 +35,7 @@
                                         @endif
                                         </td>
                                         <td>
-                                            <form action="{{ route('auditor.destroy',[$auditor->id_auditor]) }}" method="post" class="d-inline">
+                                            <form action="{{ route('auditor.destroy',[$auditor->id_auditor]) }}"  onclick="return confirm('Anda yakin menghapus data ?')" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">

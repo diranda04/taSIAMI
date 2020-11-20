@@ -6,16 +6,7 @@
     <div class="container">
         <div class="fade-in">
             <div class="row">
-
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
                     <div class="card">
                         <div class="card-header"><i class="fa fa-align-justify"></i>Dekan</div>
                         <div class="card-body">
@@ -66,5 +57,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

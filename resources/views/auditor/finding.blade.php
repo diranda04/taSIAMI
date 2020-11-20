@@ -23,15 +23,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                <?php $no = 0;?>
                                 @foreach ($audit_findings as $audit_finding)
-                                <?php $no++ ;?>
                                     <tr>
-                                        <td>{{$no}}</td>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$audit_finding->desc}}</td>
                                         <td>
-                                            <form action="#" method="post" class="d-inline">
+                                        <form action="{{ route('finding.destroy',[$audit_finding->id_audit_finding]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">
@@ -40,7 +37,6 @@
                                             </form>
                                         </td>
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
@@ -66,13 +62,7 @@
       </div>
       <div class="modal-body">
         <form action="{{route('finding.post',[$id_audit])}}" method="POST">
-
         @csrf
-
-        <div class="form-group" >
-                  <label for="exampleFormControlFile1">ID Temuan Audit</label>
-                  <input type="text" class="form-control-file" id="id_audit_finding" name="id_audit_finding">
-              </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Keterangan</label>
                   <input type="text" class="form-control-file" id="desc" name="desc">
@@ -86,8 +76,14 @@
     </div>
   </div>
 </div>
-
-
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

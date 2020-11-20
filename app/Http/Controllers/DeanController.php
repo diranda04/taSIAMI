@@ -6,47 +6,43 @@ use App\Dean;
 use App\Lecturer;
 use App\User;
 use App\Faculty;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DeanController extends Controller
 {
     public function index(){
         $deans = Dean::all();
-        $lecturers = Lecturer::all();
-        $users = User::all();
-        $faculties = Faculty::all();
-        return view('dean.index', compact('deans','lecturers','users','faculties'));
+        return view('dean.index', compact('deans'));
     }
 
     public function addDean(){
-        $deans = Dean::all();
-        $lecturers = Lecturer::all();
-        $users = User::all();
+
+        $lecturers = Lecturer::leftJoin('users', 'users.id', '=', 'lecturers.id_lecturer')->
+        where('role_id', '=', 4)
+        ->get();
         $faculties = Faculty::all();
-        return view('dean.add', compact('deans','lecturers','users','faculties'));
+        return view('dean.add', compact('lecturers','faculties'));
     }
 
     public function store(Request $request)
     {
-        try {
             $deans = new Dean ([
-                'id_dean' => $request->input('id_dean'),
                 'lecturer_id' => $request->input('lecturerSelect'),
                 'faculty_id' => $request->input('facultySelect'),
                 'start_at' => $request->input('start_at'),
                 'end_at' => $request->input('end_at'),
-
             ]);
             $deans->save();
-            return redirect ()->route('dean.index')->with('message', 'Dekan berhasil ditambahkan');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+            \Session::flash('sukses','Dekan berhasil ditambahkan');
+            return redirect ()->route('dean.index');
+
     }
 
     public function destroy($id_dean)
     {
         $deans = Dean::find($id_dean)->delete();
-        return redirect()->back()->with('message', 'Dekan berhasil dihapus');
+        \Session::flash('sukses','Dekan berhasil dihapus');
+        return redirect()->back();
     }
 }

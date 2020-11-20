@@ -12,10 +12,6 @@
             <div class="card-body">
               <form action="{{route('dean.post')}}" method="POST">
               @csrf
-              <div class="form-group" >
-                  <label for="exampleFormControlFile1">ID Dekan</label>
-                  <input type="text" class="form-control-file" id="id_dean" name="id_dean">
-              </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama</label>
                 <select name = "lecturerSelect" class="form-control" id="exampleFormControlSelect1">
@@ -34,11 +30,11 @@
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Awal Menjabat</label>
-                  <input type="text" class="form-control-file" id="start_at" name="start_at">
+                  <input type="text" class="form-control-file" id="start_at" name="start_at" required>
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Akhir Menjabat</label>
-                  <input type="text" class="form-control-file" id="end_at" name="end_at">
+                  <input type="text" class="form-control-file" id="end_at" name="end_at" required>
               </div>
                   <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                   <button type="submit" class="btn btn-primary">Save changes</button>
@@ -57,5 +53,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

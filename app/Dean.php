@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Dean extends Model
 {
@@ -16,5 +17,15 @@ class Dean extends Model
 
     public function lecturer (){
         return $this->belongsTo(Lecturer::class, 'lecturer_id','id_lecturer');
+    }
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'id_dean' => [
+                'format' => 'DEAN-?',
+                'length' => 3
+            ]
+        ];
     }
 }

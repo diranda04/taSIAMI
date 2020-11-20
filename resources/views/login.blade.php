@@ -6,6 +6,13 @@
 <div class="col-md-8">
     <div class="card-group">
         <div class="card">
+        @if (\Session::has('errors'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{!! \Session::get('errors') !!}</li>
+                </ul>
+            </div>
+        @endif
             <div class="card-body p-5">
                 <div class="text-center d-lg-none">
                     <img src="svg/modulr.svg" class="mb-5" width="150" alt="Modulr Logo">
@@ -28,7 +35,7 @@
 
                     </div>
 
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3"> 
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                             <svg class="c-icon">

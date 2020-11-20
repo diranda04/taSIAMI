@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Auditee extends Model
 {
@@ -20,5 +21,16 @@ class Auditee extends Model
 
     public function audit(){
         return $this->hasOne(Audit::class,'department_id', 'department_id');
+    }
+
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'id_auditee' => [
+                'format' => 'KP-UA-?',
+                'length' => 3
+            ]
+        ];
     }
 }

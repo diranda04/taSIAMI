@@ -18,12 +18,12 @@ class PeriodeController extends Controller
     {
         try {
             $periodes = new Periode ([
-                'id_periode' => $request->input('id_periode'),
                 'audit_start_at' => Carbon::parse($request->input('audit_start_at')),
                 'audit_end_at' => Carbon::parse($request->input('audit_end_at')),
             ]);
             $periodes -> save();
-            return redirect()->back()->with('message', 'Periode berhasil ditambahkan');
+            \Session::flash('sukses','Periode audit berhasil ditambahkan');
+            return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -32,6 +32,7 @@ class PeriodeController extends Controller
     public function destroy($id_periode)
     {
         $periodes = Periode::find($id_periode)->delete();
-        return redirect()->back()->with('message', 'Periode berhasil dihapus');
+        \Session::flash('sukses','Periode audit berhasil dihapus');
+        return redirect()->back();
     }
 }

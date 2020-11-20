@@ -23,8 +23,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        try {
+
             $users = User::create ([
                 'id' => $request->input('id'),
                 'name' => $request->input('name'),
@@ -33,11 +32,8 @@ class UserController extends Controller
                 'password' => bcrypt($request->input('password')),
                 'role_id' => $request->input('roleselect'),
             ]);
-
-            return redirect ()->route('user.index')->with('message', 'User berhasil ditambahkan');
-        } catch (\Throwable $th) {
-            return $th;
-        }
+            \Session::flash('sukses','User berhasil ditambahkan');
+            return redirect ()->route('user.index');
     }
 
     public function update(Request $request)
@@ -48,14 +44,16 @@ class UserController extends Controller
         $users -> email = $request ->input ('email');
         $users -> role_id = $request ->input ('roleselect');
         $users -> save();
-        return redirect()->back()->with('message', 'User berhasil diubah');
+        \Session::flash('sukses','User berhasil diubah');
+        return redirect()->back();
     }
 
 
     public function destroy($id)
     {
         $users = User::find($id)->delete();
-        return redirect()->back()->with('message', 'User berhasil dihapus');
+        \Session::flash('sukses','User berhasil dihapus');
+        return redirect()->back();
     }
 
 }

@@ -12,10 +12,6 @@
             <div class="card-body">
               <form action="{{route('departmentAudit.post')}}" method="POST">
               @csrf
-              <div class="form-group" >
-                  <label for="exampleFormControlFile1">Kode Auditor Prodi</label>
-                  <input type="text" class="form-control-file" id="id_department_audit" name="id_department_audit">
-              </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect3">Auditor</label>
                 <select name = "auditorSelect" class="form-control" id="exampleFormControlSelect3">
@@ -49,5 +45,13 @@
 </div>
 
 @section('javascript')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
 @endsection

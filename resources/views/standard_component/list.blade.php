@@ -7,14 +7,7 @@
             <div class="fade-in"  >
             <div class="row">
                 <div class="col-lg-12">
-                @if (session('message'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ session('message')}}
-                </div>
-                @endif
+               
                   <div class="card">
                     <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
                     <div class="card-body">
@@ -25,7 +18,7 @@
                         <thead>
                           <tr>
 
-                            <th>ID Komponen Standar</th>
+                            <th>No</th>
                             <th>Komponen Standar</th>
                             <th>Aksi</th>
                           </tr>
@@ -34,7 +27,7 @@
                         @foreach ($standard_components as $standard_component)
                           <tr>
 
-                            <td>{{$standard_component->id_standard_component}}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{$standard_component->desc}}</td>
                             <td>
                             <a href="{{ route('question.detail',[$standard_component->id_standard_component]) }}" class= "btn btn-success">
@@ -81,10 +74,6 @@
         <form action="{{route('component.post',[$id_standard])}}" method="POST">
         @csrf
           <div class="form-group">
-            <label for="formGroupExampleInput">ID Komponen Standar</label>
-            <input type="text" name="id_standard_component" class="form-control" id="id_standard_component" placeholder="">
-          </div>
-          <div class="form-group">
             <label for="formGroupExampleInput2">Deskribsi</label>
             <input type="text" name="desc" class="form-control" id="desc" placeholder="">
           </div>
@@ -123,8 +112,6 @@
         <label for="exampleFormControlFile1">Keterangan</label>
         <input type="text" class="form-control-file" id="edit_desc" name="desc">
       </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -149,4 +136,15 @@
 
   })
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var flash = "{{ Session::has('sukses') }}";
+        if(flash){
+            var pesan = "{{ Session::get('sukses') }}"
+            alert(pesan);
+        }
+    })
+</script>
+
 @endsection
