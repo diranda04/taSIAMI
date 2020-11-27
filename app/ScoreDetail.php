@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class ScoreDetail extends Model
 {
@@ -11,5 +12,16 @@ class ScoreDetail extends Model
     public function question()
     {
         return $this->belongsTo(Question::class,'question_id','id_question');
+    }
+
+    use AutoNumberTrait;
+    public function getAutoNumberOptions()
+    {
+        return [
+            'id_score_detail' => [
+                'format' => 'D-'.date('Y').'-?', // autonumber format. '?' will be replaced with the generated number.
+                'length' => 3 // The number of digits in an autonumber
+            ]
+        ];
     }
 }

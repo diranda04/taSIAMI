@@ -2,45 +2,40 @@
 
 @section('content')
 
-<div>
     <div class="container">
         <div class="fade-in">
             <div class="row">
-
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Permintaan Tindakan Koreksi</div>
+                        <h5><div class="card-header"><i class="fa fa-align-justify"></i>Permintaan Tindakan Koreksi</div></h5>
                         <div class="card-body">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDevience">
-                        Tambah Keadaan Menyimpang
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addDevience">
+                        <span class="cil-plus btn-icon mr-2"></span>Tambah Keadaan Menyimpang
                         </button>
+                        <br>
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Keadaan Menyimpang</th>
+                                    <tr class="text-center">
+                                        <th class="border-right">No</th>
+                                        <th class="border-right">Keadaan Menyimpang</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
                                 @foreach ($correction_forms as $correction_form)
-
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$correction_form->devience}}</td>
+                                    <tr class="text-center">
+                                        <td class="border-right">{{$loop->iteration}}.</td>
+                                        <td class="border-right">{{$correction_form->devience}}</td>
                                         <td>
                                         <form action="{{ route('devience.destroy',[$correction_form->id_correction_form]) }}"  onclick="return confirm('Anda yakin menghapus data ?')" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger">
-                                                    <i class="cil-trash"></i>
+                                                <button class="btn btn-youtube">
+                                                <span class="cil-trash btn-icon mr-2"></span>Hapus
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
@@ -50,7 +45,6 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
 </div>
 </div>
@@ -69,7 +63,7 @@
         @csrf
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Keadaan Menyimpang</label>
-                  <input type="text" class="form-control-file" id="devience" name="devience">
+                  <textarea type="text" class="form-control-file" id="devience" name="devience" cols="30" rows="5"></textarea>
               </div>
       </div>
       <div class="modal-footer">

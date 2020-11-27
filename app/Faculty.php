@@ -16,7 +16,7 @@ class Faculty extends Model
     }
 
     public function department(){
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Department::class, 'faculty_id');
     }
 
     use AutoNumberTrait;

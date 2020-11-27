@@ -17,7 +17,7 @@ class StandardComponent extends Model
     }
 
     public function question(){
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'standard_component_id');
     }
 
     use AutoNumberTrait;

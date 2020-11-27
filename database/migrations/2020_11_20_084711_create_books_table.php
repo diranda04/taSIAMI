@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStandardsTable extends Migration
+class CreateBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateStandardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('standards', function (Blueprint $table) {
-            $table->string('id_standard', 12);
-            $table->string('name', 100);
-            $table->timestamps();
+        Schema::create('books', function (Blueprint $table) {
+            $table->string('id_book', 6);
+            $table->string('book_name', 100);
 
-            $table->primary('id_standard');
+            $table->primary('id_book');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateStandardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('standards');
+        Schema::dropIfExists('books');
     }
 }

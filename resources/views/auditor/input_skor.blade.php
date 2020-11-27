@@ -2,58 +2,65 @@
 
 @section('content')
 
-<div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
-                <!-- /.col-->
                 <div class="col-lg-12">
+                @if (session('message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ session('message')}}
+                    </div>
+                    @endif
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Instrumen AMI</div>
+                        <h5><div class="card-header"><i class="fa fa-align-justify"></i>AUDIT MUTU INTERNAL : {{$department->department_name}}</div></h5>
                         <div class="card-body">
                             <table class="table table-responsive-sm table-striped">
-                                <thead>
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Indikator Penilaian</th>
-                                            <th>Score Taksiran</th>
-                                            <th>Score Auditor</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
+                                @foreach ($standards as $standard)
+                                <tr>
+                                    <th colspan="5">{{$standard->name}}</th>
+                                </tr>
+                                @foreach ($standard->standardComponent as $sc)
+                                <tr>
+                                    <th colspan="5">{{$sc->desc}}</th>
+                                </tr>
+                                    <tr class="text-center">
+                                        <th class="align-middle border-right">No</th>
+                                        <th class="align-middle border-right">Indikator Penilaian</th>
+                                        <th class="align-middle border-right">Skor Taksiran</th>
+                                        <th class="align-middle border-right">Skor Audit</th>
+                                        <th class="align-middle">Aksi</th>
+                                    </tr>
                                 <tbody>
-
-                                    @foreach ($audits as $audit)
-
+                                    @foreach ($sc->question as $q)
                                     <tr>
-                                        <th scope="row">{{$loop->iteration}}</th>
-                                        <td>{{$audit->desc}}</td>
-                                        <td>{{$audit->score_auditee}}</td>
-                                        <td>{{$audit->score_auditor}}</td>
+                                        <th class="border-right" scope="row">{{$loop->iteration}}.</th>
+                                        <td class="border-right">{{$q->desc}}</td>
+                                        <td class="text-center border-right">{{$q->nilaiFromAudit($id_audit)->first() ? $q->nilaiFromAudit($id_audit)->first()->score_auditee : ""}}</td>
+                                        <td class="text-center border-right">{{$q->nilaiFromAudit($id_audit)->first() ? $q->nilaiFromAudit($id_audit)->first()->score_auditor : ""}}</td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="modal"
                                                 data-target="#viewDetail" id='detailSkor'
-                                                data-id="{{$audit->id_question}}"
-                                                onClick="setIdQuestion('{{$audit->id_question}}')">
+                                                data-id="{{$q->id_audit}}"
+                                                onClick="setIdQuestion('{{$q->id_question}}')">
                                                 <i class="cil-pencil"></i>
                                             </button>
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
-                            {{ $audits->links() }}
+                            {{ $standards->links() }}
                         </div>
                     </div>
                 </div>
-                <!-- /.col-->
             </div>
-            <!-- /.row-->
         </div>
-        <!-- /.row-->
     </div>
-</div>
 @endsection
 </div>
 
@@ -73,7 +80,7 @@
                     <thead>
                         <tr>
                             <th>Skor</th>
-                            <th>Desc</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody id="body_table">
@@ -87,15 +94,14 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" onClick="addScore()" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" onClick="addScore()" class="btn btn-primary">Simpan</button>
             </div>
             </form>
         </div>
     </div>
 </div>
 </div>
-
 
 @section('javascript')
 <script>
@@ -131,9 +137,9 @@
 
 </script>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         var flash = "{{ Session::has('sukses') }}";
-        if(flash){
+        if (flash) {
             var pesan = "{{ Session::get('sukses') }}"
             alert(pesan);
         }

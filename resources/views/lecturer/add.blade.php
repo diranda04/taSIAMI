@@ -15,6 +15,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama</label>
                 <select name = "lecturerSelect" class="form-control" id="exampleFormControlSelect1">
+                <option selected disabled value=""></option>
                     @foreach ($users as $user)
                     <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
@@ -22,14 +23,13 @@
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">Alamat</label>
-                  <input type="text" class="form-control-file" id="address" name="address" required>
+                  <textarea type="text" class="form-control-file" id="address" name="address" required cols="30" rows="3"></textarea>
               </div>
               <div class="form-group" >
                   <label for="exampleFormControlFile1">No Telpon</label>
                   <input type="text" class="form-control-file" id="telephone" name="telephone" required>
               </div>
-                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <button type="submit" class="btn btn-primary"><span class="cil-save btn-icon mr-2"></span>Simpan</button>
                 </div>
               </form>
               </div>

@@ -11,12 +11,12 @@ class Standard extends Model
     protected $primaryKey = 'id_standard';
     public $incrementing = false;
 
-    public function auditInstrument(){
-        return $this->hasMany(AuditInstrument::class);
+    public function instrument(){
+        return $this->hasMany(Instrument::class);
     }
 
     public function standardComponent(){
-        return $this->hasMany(StandardComponent::class);
+        return $this->hasMany(StandardComponent::class, 'standard_id');
     }
 
     use AutoNumberTrait;

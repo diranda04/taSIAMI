@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AuditInstrument extends Model
+class Instrument extends Model
 {
-    protected $fillable = ['standard_id', 'periode_id']; 
+    protected $fillable = ['standard_id', 'book_id'];
 
 
 
@@ -15,8 +15,10 @@ class AuditInstrument extends Model
         return $this->belongsTo(Standard::class,'standard_id','id_standard');
     }
 
-    public function periode()
+    public function book()
     {
-        return $this->belongsTo(Periode::class, 'periode_id','id_periode');
+        return $this->belongsTo(Book::class,'book_id','id_book');
     }
+
+    
 }

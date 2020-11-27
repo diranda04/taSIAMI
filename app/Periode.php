@@ -7,14 +7,17 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Periode extends Model
 {
-    protected $fillable = ['id_periode','audit_start_at', 'audit_end_at', 'submit_start_at', 'submit_end_at'];
+    protected $fillable = ['id_periode', 'book_id', 'audit_start_at', 'audit_end_at'];
     protected $primaryKey = 'id_periode';
     public $incrementing = false;
 
-    public function auditInstrument(){
+
+    public function book (){
+        return $this->belongsTo(Book::class,'book_id','id_book');
+    }
+    public function Instrument(){
         return $this->hasMany(AuditInstrument::class);
     }
-
     public function audit(){
         return $this->hasMany(Audit::class);
     }

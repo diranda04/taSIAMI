@@ -16,7 +16,7 @@ class CreateDeansTable extends Migration
         Schema::create('deans', function (Blueprint $table) {
             $table->string('id_dean', 25);
             $table->string('lecturer_id', 25);
-            $table->string('faculty_id', 5);
+            $table->string('faculty_id', 12);
             $table->year('start_at');
             $table->year('end_at');
             $table->timestamps();

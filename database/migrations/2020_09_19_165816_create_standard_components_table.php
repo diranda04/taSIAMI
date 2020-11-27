@@ -14,9 +14,9 @@ class CreateStandardComponentsTable extends Migration
     public function up()
     {
         Schema::create('standard_components', function (Blueprint $table) {
-            $table->string('id_standard_component', 6);
+            $table->string('id_standard_component', 12);
             $table->text('desc');
-            $table->string('standard_id', 6);
+            $table->string('standard_id', 12);
             $table->timestamps();
 
             $table->primary('id_standard_component');

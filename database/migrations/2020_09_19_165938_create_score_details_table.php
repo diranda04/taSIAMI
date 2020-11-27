@@ -14,8 +14,8 @@ class CreateScoreDetailsTable extends Migration
     public function up()
     {
         Schema::create('score_details', function (Blueprint $table) {
-            $table->string('id_score_detail', 8);
-            $table->string('question_id', 6);
+            $table->string('id_score_detail', 12);
+            $table->string('question_id', 12);
             $table->integer('score');
             $table->text('desc');
             $table->timestamps();

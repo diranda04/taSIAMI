@@ -15,11 +15,13 @@ class CreatePeriodesTable extends Migration
     {
         Schema::create('periodes', function (Blueprint $table) {
             $table->string('id_periode', 5);
+            $table->string('book_id', 6);
             $table->date('audit_start_at');
             $table->date('audit_end_at');
             $table->timestamps();
 
             $table->primary('id_periode');
+            $table->foreign('book_id')->references('id_book')->on('books')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

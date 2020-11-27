@@ -46,7 +46,5 @@ class User extends Authenticatable
         return $this->hasOne(Lecturer::class, 'id_lecturer', 'id');
     }
 
-    public function auditor(){
-        return $this->hasOne(Auditor::class, 'id_auditor', 'id');
-    }
+
 }

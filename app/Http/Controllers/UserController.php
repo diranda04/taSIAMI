@@ -21,23 +21,20 @@ class UserController extends Controller
         return view('user.add', compact('users','roles'));
     }
 
-    public function store(Request $request)
-    {
-
-            $users = User::create ([
-                'id' => $request->input('id'),
-                'name' => $request->input('name'),
-                'username' => $request->input('username'),
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
-                'role_id' => $request->input('roleselect'),
-            ]);
-            \Session::flash('sukses','User berhasil ditambahkan');
-            return redirect ()->route('user.index');
+    public function store(Request $request){
+        $users = User::create ([
+            'id' => $request->input('id'),
+            'name' => $request->input('name'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role_id' => $request->input('roleselect'),
+        ]);
+        \Session::flash('sukses','User berhasil ditambahkan');
+        return redirect ()->route('user.index');
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         $users = User::find($request->id);
         $users -> name = $request ->input ('name');
         $users -> username = $request ->input ('username');
@@ -48,12 +45,9 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-
-    public function destroy($id)
-    {
+    public function destroy($id){
         $users = User::find($id)->delete();
         \Session::flash('sukses','User berhasil dihapus');
         return redirect()->back();
     }
-
 }

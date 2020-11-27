@@ -19,7 +19,6 @@ class UserLoginController extends Controller
     }
     public function postLogin(Request $request){
         {
-
             $request->validate([
                 'login'  => 'required',
                 'password' => 'required',
@@ -29,7 +28,6 @@ class UserLoginController extends Controller
             {
                 return redirect()->route('home')->with('success','Selamat datang');
             }
-
             return redirect()->route('login.index')->with('errors','Username atau password salah!');
         }
     }

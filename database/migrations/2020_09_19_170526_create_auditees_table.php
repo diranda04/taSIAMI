@@ -16,7 +16,7 @@ class CreateAuditeesTable extends Migration
         Schema::create('auditees', function (Blueprint $table) {
             $table->string('id_auditee', 25);
             $table->string('lecturer_id', 25);
-            $table->string('department_id', 6);
+            $table->string('department_id', 12);
             $table->year('start_at');
             $table->year('end_at');
             $table->timestamps();

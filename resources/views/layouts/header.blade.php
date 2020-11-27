@@ -27,8 +27,6 @@
                         href="#">
                         <i class="c-sidebar-nav-icon cil-user"></i>
                         Profile</a><a class="dropdown-item" href="#">
-                        <i class="c-sidebar-nav-icon cil-settings"></i>
-                        Settings</a><a class="dropdown-item" href="#">
                         <svg class="c-icon mr-2">
                             <use xlink:href="{{ env('APP_URL', '') }}/icons/sprites/free.svg#cil-account-logout"></use>
                         </svg>

@@ -25,6 +25,11 @@ class Question extends Model
         return $this->hasMany(ScoreDetail::class);
     }
 
+    public function nilaiFromAudit($id_audit)
+    {
+        return $this->hasOne(AuditScore::class, 'question_id','id_question')->where('audit_id',$id_audit);
+    }
+
     use AutoNumberTrait;
     public function getAutoNumberOptions()
     {

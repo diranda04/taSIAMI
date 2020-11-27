@@ -14,9 +14,9 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->string('id_department', 10);
-            $table->string('name', 100);
-            $table->string('faculty_id', 5);
+            $table->string('id_department', 12);
+            $table->string('department_name', 100);
+            $table->string('faculty_id', 12);
             $table->string('accreditation', 1);
             $table->text('sk_num')->unique()->nullable();
             $table->timestamps();

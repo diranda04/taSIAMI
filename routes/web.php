@@ -17,7 +17,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:Admin']], function () {
 
         Route::get('/standard', 'StandardController@index')->name('standard.index');
-        Route::get('/instrument', 'AuditInstrumentController@index')->name('instrument.index');
+        Route::get('/instrument/{id_book}', 'AuditInstrumentController@index')->name('instrument.index');
         Route::get('standard_component/{id_standard}', 'StandardComponentController@detailStandard')->name('standard.detail');
         Route::get('question/{id_standard_component}', 'QuestionController@detailComponent')->name('question.detail');
         Route::get('score_detail/{id_question}', 'ScoreDetailController@detailComponent')->name('score_detail.detail');
@@ -26,23 +26,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/periode', 'PeriodeController@index')->name('periode.index');
         Route::get('/user', 'UserController@index')->name('user.index');
         Route::get('/tambah-user', 'UserController@adduser')->name('user.add');
-        Route::get('/tambah-periode-standar', 'AuditInstrumentController@addPs')->name('periodeStandard.add');
         Route::get('/dosen', 'LecturerController@index')->name('lecturer.index');
         Route::get('/tambah-dosen', 'LecturerController@addlecturer')->name('lecturer.add');
         Route::get('/dekan', 'DeanController@index')->name('dean.index');
-        Route::get('/tambah-dekan', 'DeanController@addDean')->name('dean.add');
         Route::get('/kajur', 'AuditeeController@index')->name('auditee.index');
-        Route::get('/tambah-kajur', 'AuditeeController@addAuditee')->name('auditee.add');
         Route::get('/auditor', 'AuditorController@index')->name('auditor.index');
-        Route::get('/tambah-auditor', 'AuditorController@addAuditor')->name('auditor.add');
         Route::get('/auditor/ChangeStatus/{id_auditor}', 'AuditorController@changeStatus')->name('auditor.change');
         Route::get('/prodi-audit', 'AuditController@index')->name('audit.index');
-        Route::get('/tambah-prodi-periode', 'AuditController@addAudit')->name('audit.add');
         Route::get('/prodi-auditor', 'DepartmentAuditController@index')->name('departmentAudit.index');
-        Route::get('/tambah-prodi-auditor', 'DepartmentAuditController@addDepartmentAudit')->name('departmentAudit.add');
         Route::get('/admin/dokumen-audit', 'AuditController@dokumenAdmin')->name('dokumenAdmin.audit');
         Route::get('/admin/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('adminDokumen.ami');
         Route::get('/admin/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptkadmin.print');
+        Route::get('/audit_book', 'BookController@index')->name('book.index');
 
         Route::post('/standard', 'StandardController@store')->name('standard.post');
         Route::post('/standard_component/{id_standard}', 'StandardComponentController@store')->name('component.post');
@@ -54,17 +49,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/user', 'UserController@store')->name('user.post');
         Route::post('/dosen', 'LecturerController@store')->name('lecturer.post');
         Route::post('/kajur', 'AuditeeController@store')->name('auditee.post');
-        Route::post('/instrument', 'AuditInstrumentController@store')->name('periodeStandard.post');
+        Route::post('/instrument/{id_book}', 'AuditInstrumentController@store')->name('instrumentStandard.post');
         Route::post('/dekan', 'DeanController@store')->name('dean.post');
         Route::post('/auditor', 'AuditorController@store')->name('auditor.post');
         Route::post('/prodi-audit', 'AuditController@store')->name('audit.post');
         Route::post('/prodi-auditor', 'DepartmentAuditController@store')->name('departmentAudit.post');
+        Route::post('/audit_book', 'BookController@store')->name('book.post');
 
         Route::delete('/standard/{id_standard}', 'StandardController@destroy')->name('standard.destroy');
         Route::delete('/question/{id_question}', 'QuestionController@destroy')->name('question.destroy');
         Route::delete('/standard_component/{id_standard_component}', 'StandardComponentController@destroy')->name('component.destroy');
         Route::delete('/faculties/{id_faculty}', 'FacultyController@destroy')->name('faculty.destroy');
-        Route::delete('/department/{id_dpartement}', 'DepartmentController@destroy')->name('department.destroy');
+        Route::delete('/department/{id_departement}', 'DepartmentController@destroy')->name('department.destroy');
         Route::delete('/periode/{id_periode}', 'PeriodeController@destroy')->name('periode.destroy');
         Route::delete('/auditor/{id_auditor}', 'AuditorController@destroy')->name('auditor.destroy');
         Route::delete('/user/{id}', 'UserController@destroy')->name('user.destroy');
@@ -74,13 +70,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/prodi-audit/{id_audit}', 'AuditController@destroy')->name('audit.destroy');
         Route::delete('/prodi-auditor/{id_department_audit}', 'DepartmentAuditController@destroy')->name('departmentAudit.destroy');
         Route::delete('/instrument/{id}', 'AuditInstrumentController@destroy')->name('instrument.destroy');
+        Route::delete('/audit_book/{id_standard}', 'BookController@destroy')->name('book.destroy');
 
         Route::patch('/standard', 'StandardController@update')->name('standard.edit');
         Route::patch('/standard_component/{id_standard}', 'StandardComponentController@update')->name('component.edit');
         Route::patch('/user', 'UserController@update')->name('user.edit');
+        Route::patch('/dosen', 'LecturerController@update')->name('lecturer.edit');
         Route::patch('/question/{id_standard_component}', 'QuestionController@update')->name('question.edit');
         Route::patch('/faculties', 'FacultyController@update')->name('faculty.edit');
         Route::patch('/department/{id_faculty}', 'DepartmentController@update')->name('prodi.edit');
+        Route::patch('/score_detail/{id_question}', 'ScoreDetailController@update')->name('detail.edit');
+
 });
 
     Route::group(['middleware' => ['checkrole:Auditor']], function () {

@@ -27,25 +27,30 @@ class LecturerController extends Controller
         return view('lecturer.add', compact('lecturers','users'));
     }
 
-    public function store(Request $request)
-    {
-        try {
-            $lecturers = new Lecturer ([
-                'id_lecturer' => $request->input('lecturerSelect'),
-                'address' => $request->input('address'),
-                'telephone' => $request->input('telephone'),
+    public function store(Request $request){
+        $lecturers = new Lecturer ([
+            'id_lecturer' => $request->input('lecturerSelect'),
+            'address' => $request->input('address'),
+            'telephone' => $request->input('telephone'),
 
-            ]);
-            $lecturers->save();
-            return redirect ()->route('lecturer.index')->with('message', 'Berhasil menambahkan dosen');
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
+        ]);
+        $lecturers->save();
+        \Session::flash('sukses','Data dosen berhasil ditambahkan');
+        return redirect ()->route('lecturer.index');
     }
 
-    public function destroy($id_lecturer)
-    {
+    public function update(Request $request){
+        $lecturers = Lecturer::find($request->id_lecturer);
+        $lecturers -> address = $request ->input ('address');
+        $lecturers -> telephone = $request ->input ('telephone');
+        $lecturers -> save();
+        \Session::flash('sukses','Data dosen berhasil diubah');
+        return redirect()->back();
+    }
+
+    public function destroy($id_lecturer){
         $lecturers = Lecturer::find($id_lecturer)->delete();
-        return redirect()->back()->with('message', 'Dosen berhasil dihapus');
+        \Session::flash('sukses','Data dosen berhasil dihapus');
+        return redirect()->back();
     }
 }

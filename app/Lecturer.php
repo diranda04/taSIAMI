@@ -22,4 +22,7 @@ class Lecturer extends Model
     public function auditee(){
         return $this->hasMany(Auditee::class,'lecturer_id', 'id_lecturer');
     }
+    public function auditor(){
+        return $this->hasOne(Auditor::class, 'id_auditor', 'id_lecturer');
+    }
 }

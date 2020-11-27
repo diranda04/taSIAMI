@@ -1,45 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
-
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header"><i class="fa fa-align-justify"></i>Permintaan Tindakan Koreksi</div>
+                        <h5><div class="card-header"><i class="fa fa-align-justify"></i>Permintaan Tindakan Koreksi</div></h5>
                         <div class="card-body">
-
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="text-center">Keadaan Menyimpang</th>
-                                        <th class="text-center">Akar Penyebab</th>
-                                        <th class="text-center">Rencana Perbaikan</th>
-                                        <th class="text-center">Aksi</th>
+                                    <tr class="text-center">
+                                        <th class="border-right">No</th>
+                                        <th class="border-right">Keadaan Menyimpang</th>
+                                        <th class="border-right">Akar Penyebab</th>
+                                        <th class="border-right">Rencana Perbaikan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 @foreach ($correction_forms as $correction_form)
-
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$correction_form->devience}}</td>
-                                        <td>{{$correction_form->causes}}</td>
-                                        <td>{{$correction_form->plan}}</td>
+                                    <tr class="text-center">
+                                        <td class="border-right">{{$loop->iteration}}</td>
+                                        <td class="border-right">{{$correction_form->devience}}</td>
+                                        <td class="border-right">{{$correction_form->causes}}</td>
+                                        <td class="border-right">{{$correction_form->plan}}</td>
                                         <td class="text-center">
                                         <a href="" class="btn btn-primary" id="editButton" data-toggle="modal" data-target="#editPTK" data-id_correction_form="{{$correction_form->id_correction_form}}"
-                                            data-devience="{{$correction_form->devience}}">
-                                                PTK-Akar Penyebab & Rencana Perbaikan
+                                            data-devience="{{$correction_form->devience}}" data-causes="{{$correction_form->causes}}" data-plan="{{$correction_form->plan}}">
+                                            <span class="cil-pencil btn-icon mr-2"></span>PTK-Akar Penyebab & Rencana Perbaikan
                                         </a>
-
                                         </td>
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
@@ -49,11 +41,9 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
 </div>
 </div>
-
 <!-- Modal PTK -->
 <div class="modal fade" id="editPTK" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -68,24 +58,19 @@
       <form action="{{route('ptk.edit',[$id_audit])}}" method="POST">
       @csrf
       @method('PATCH')
-      <div class="form-group">
-        <label for="exampleFormControlFile1">ID</label>
-        <input type="text" class="form-control-file" id="edit_id" name="id_correction_form">
-      </div>
+        <input type="hidden" class="form-control-file" id="edit_id" name="id_correction_form">
       <div class="form-group">
         <label for="exampleFormControlFile1">Temuan</label>
-        <input type="text" class="form-control-file" id="edit_devience" name="devience">
+        <textarea disabled type="text" class="form-control-file" id="edit_devience" name="devience" cols="30" rows="3"></textarea>
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Akar Penyebab</label>
-        <input type="text" class="form-control-file" id="edit_causes" name="causes">
+        <textarea type="text" class="form-control-file" id="edit_causes" name="causes" cols="30" rows="3"></textarea>
       </div>
       <div class="form-group">
         <label for="exampleFormControlFile1">Rencana Perbaikan</label>
-        <input type="text" class="form-control-file" id="edit_plan" name="plan">
+        <textarea type="text" class="form-control-file" id="edit_plan" name="plan" cols="30" rows="3"></textarea>
       </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

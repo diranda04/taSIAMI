@@ -14,9 +14,9 @@ class CreateQuestionsTable extends Migration
     public function up()
     {
         Schema::create('questions', function (Blueprint $table) {
-            $table->string('id_question', 6);
+            $table->string('id_question', 12);
             $table->text('desc');
-            $table->string('standard_component_id', 6);
+            $table->string('standard_component_id', 12);
             $table->timestamps();
 
             $table->primary('id_question');
