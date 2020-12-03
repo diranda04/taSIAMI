@@ -14,10 +14,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('report.lihat');
         Route::get('/audit-prodi/temuan-audit/print/{id_audit}', 'AuditFindingController@printFinding')->name('finding.print');
 
+        // Route::get('preview', 'PrintChartController@preview');
+        // Route::get('download', 'PrintChartController@download')->name('download');
+
     Route::group(['middleware' => ['checkrole:Admin']], function () {
 
-        Route::get('/standard', 'StandardController@index')->name('standard.index');
-        Route::get('/instrument/{id_book}', 'AuditInstrumentController@index')->name('instrument.index');
+
+        Route::get('/instrument', 'AuditInstrumentController@index')->name('instrument.index');
+        Route::get('/standard/{id_instrument}', 'StandardController@detailInstrument')->name('instrument.detail');
         Route::get('standard_component/{id_standard}', 'StandardComponentController@detailStandard')->name('standard.detail');
         Route::get('question/{id_standard_component}', 'QuestionController@detailComponent')->name('question.detail');
         Route::get('score_detail/{id_question}', 'ScoreDetailController@detailComponent')->name('score_detail.detail');
@@ -37,9 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/admin/dokumen-audit', 'AuditController@dokumenAdmin')->name('dokumenAdmin.audit');
         Route::get('/admin/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('adminDokumen.ami');
         Route::get('/admin/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptkadmin.print');
-        Route::get('/audit_book', 'BookController@index')->name('book.index');
 
-        Route::post('/standard', 'StandardController@store')->name('standard.post');
+
+        Route::post('/standard/{id_instrument}', 'StandardController@store')->name('standard.post');
         Route::post('/standard_component/{id_standard}', 'StandardComponentController@store')->name('component.post');
         Route::post('/question/{id_standard_component}', 'QuestionController@store')->name('question.post');
         Route::post('/score_detail/{id_question}', 'ScoreDetailController@store')->name('detail.post');
@@ -54,7 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/auditor', 'AuditorController@store')->name('auditor.post');
         Route::post('/prodi-audit', 'AuditController@store')->name('audit.post');
         Route::post('/prodi-auditor', 'DepartmentAuditController@store')->name('departmentAudit.post');
-        Route::post('/audit_book', 'BookController@store')->name('book.post');
+        Route::post('/instrument', 'AuditInstrumentController@store')->name('instrument.post');
 
         Route::delete('/standard/{id_standard}', 'StandardController@destroy')->name('standard.destroy');
         Route::delete('/question/{id_question}', 'QuestionController@destroy')->name('question.destroy');
@@ -71,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/prodi-auditor/{id_department_audit}', 'DepartmentAuditController@destroy')->name('departmentAudit.destroy');
         Route::delete('/instrument/{id}', 'AuditInstrumentController@destroy')->name('instrument.destroy');
         Route::delete('/audit_book/{id_standard}', 'BookController@destroy')->name('book.destroy');
+        Route::delete('score_detail/{id_score_detail}', 'ScoreDetailController@destroy')->name('detail.destroy');
 
         Route::patch('/standard', 'StandardController@update')->name('standard.edit');
         Route::patch('/standard_component/{id_standard}', 'StandardComponentController@update')->name('component.edit');
@@ -92,7 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/auditor/dokumen-audit', 'AuditController@dokumenAudit')->name('dokumen.audit');
         Route::get('/dokumen-audit/instrument-ami/print/{id_audit}', 'AuditInstrumentController@printReport')->name('report.print');
         Route::get('/auditor/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptkauditor.print');
-        Route::get('/standard-audit/{id_audit}', 'StandardController@auditorScore')->name('instrument.detail');
+        Route::get('/standard-audit/{id_audit}', 'StandardController@auditorScore')->name('auditorInstrument.detail');
         Route::get('/skor_audit/{id_audit}', 'AuditScoreController@indexAuditor')->name('skoraudit.view');
         Route::get('/skor_audit/get_data/{id_audit}/','AuditScoreController@get_score')->name('skoraudit.get_data');
 
@@ -102,6 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::delete('/temuan-audit/{id_audit_finding}', 'AuditFindingController@destroy')->name('finding.destroy');
         Route::delete('/auditor/PTK/keadaan-menyimpang/{id_correction_form}', 'CorrectionFormController@destroy')->name('devience.destroy');
+
 });
 
     Route::group(['middleware' => ['checkrole:Auditee']], function () {

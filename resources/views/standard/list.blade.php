@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('standard.post')}}" method="POST">
+                <form action="{{route('standard.post',[$id_instrument])}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Keterangan</label>
@@ -103,7 +103,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('standard.edit')}}" method="POST">
+                <form action="{{route('standard.edit',[$id_instrument])}}" method="POST">
                     @csrf
                     @method('PATCH')
                     <input type="hidden" class="form-control-file" id="edit_id" name="id_standard">

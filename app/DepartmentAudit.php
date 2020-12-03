@@ -26,8 +26,8 @@ class DepartmentAudit extends Model
     {
         return [
             'id_department_audit' => [
-                'format' => 'DA?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'DA?',
+                'length' => 3
             ]
         ];
     }

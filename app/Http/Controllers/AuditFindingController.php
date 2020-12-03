@@ -29,15 +29,14 @@ class AuditFindingController extends Controller
         ->where('audit_id',$id_audit)->get();
         $auditees = Department::leftJoin('audits', 'audits.department_id', '=', 'departments.id_department')
         ->leftJoin('auditees', 'auditees.department_id', '=', 'departments.id_department')
-        ->leftJoin('lecturers', 'lecturers.id_lecturer', '=', 'auditees.lecturer_id')
-        ->leftJoin("users", "lecturers.id_lecturer", "=", "users.id")
+        ->leftJoin("users", "auditees.user_id", "=", "users.id")
         ->where('id_audit',$id_audit)->first();
+        
 
         view()->share('audit_findings',$audit_findings);
         $pdf = PDF::loadview('audit.temuan_print', compact('audit_findings', 'auditors', 'auditees'));
         return $pdf->stream();
     }
-
 
     public function store(Request $request, $id_audit){
         $audit_findings = new AuditFinding ([

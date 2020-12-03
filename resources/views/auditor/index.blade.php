@@ -23,7 +23,7 @@
                                 @foreach ($auditors as $auditor)
                                     <tr>
                                         <td class="border-right">{{$loop->iteration}}.</td>
-                                        <td class="border-right">{{$auditor->lecturer->user->name}}</td>
+                                        <td class="border-right">{{$auditor->user->name}}</td>
                                         <td class="border-right">
                                         @if($auditor->status == 1)
                                         <a href="{{ route('auditor.change',[$auditor->id_auditor]) }}" class="btn btn-success"><span class="cil-check-circle btn-icon mr-2"></span>Aktif</a>
@@ -57,8 +57,8 @@
                 <label for="exampleFormControlSelect1">Nama</label>
                 <select name = "auditorSelect" class="form-control" id="exampleFormControlSelect1">
                 <option selected disabled value=""></option>
-                    @foreach ($lecturers as $lecturer)
-                    <option value="{{$lecturer->id_lecturer}}">{{$lecturer->user->name}}</option>
+                    @foreach ($users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
                 </select>
               </div>

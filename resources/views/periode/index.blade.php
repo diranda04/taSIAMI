@@ -26,7 +26,7 @@
                                 @foreach ($periodes as $periode)
                                 <tr>
                                     <th class="border-right" scope="row">{{$loop->iteration}}.</th>
-                                    <td class="border-right">{{$periode->book->book_name}}</td>
+                                    <td class="border-right">{{$periode->instrument->name}}</td>
                                     <td class="border-right">{{$periode->audit_start_at}}</td>
                                     <td class="border-right">{{$periode->audit_end_at}}</td>
                                     <td>
@@ -66,10 +66,10 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Instrumen yang digunakan</label>
-                                <select name="bookSelect" class="form-control" id="exampleFormControlSelect1">
+                                <select name="instrumentSelect" class="form-control" id="exampleFormControlSelect1">
                                 <option selected disabled value=""></option>
-                                    @foreach ($books as $book)
-                                    <option value="{{$book->id_book}}">{{$book->book_name}}</option>
+                                    @foreach ($instruments as $instrument)
+                                    <option value="{{$instrument->id_instrument}}">{{$instrument->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

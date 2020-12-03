@@ -7,12 +7,12 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Standard extends Model
 {
-    protected $fillable = ['id_standard','name'];
+    protected $fillable = ['id_standard','instrument_id', 'name' ];
     protected $primaryKey = 'id_standard';
     public $incrementing = false;
 
     public function instrument(){
-        return $this->hasMany(Instrument::class);
+        return $this->belongsTo(Instrument::class, 'instrument_id','id_instrument');
     }
 
     public function standardComponent(){
@@ -24,8 +24,8 @@ class Standard extends Model
     {
         return [
             'id_standard' => [
-                'format' => 'STD?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'STD?',
+                'length' => 3
             ]
         ];
     }

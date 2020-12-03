@@ -12,10 +12,8 @@ class AuditorController extends Controller
 {
     public function index(){
         $auditors = Auditor::all();
-        $users = User::all();
-        $lecturers = Lecturer::leftJoin('users', 'users.id', '=', 'lecturers.id_lecturer')->
-        where('role_id', '=', 2)->get();
-        return view('auditor.index', compact('auditors','users','lecturers'));
+        $users = User::where('role_id', '=', 2)->get();
+        return view('auditor.index', compact('auditors','users'));
     }
 
     public function changeStatus($id_auditor){
@@ -39,7 +37,6 @@ class AuditorController extends Controller
             'id_auditor' => $request->input('auditorSelect'),
             'status' => $request->input('status'),
             'start_at' => $request->input('start_at'),
-
         ]);
         $auditors->save();
         return redirect ()->route('auditor.index');

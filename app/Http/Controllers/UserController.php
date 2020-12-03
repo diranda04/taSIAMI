@@ -8,7 +8,6 @@ use App\Role;
 
 class UserController extends Controller
 {
-
     public function index(){
         $users = User::paginate(10);
         $roles = Role::all();

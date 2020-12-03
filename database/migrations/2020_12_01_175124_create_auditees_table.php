@@ -15,14 +15,14 @@ class CreateAuditeesTable extends Migration
     {
         Schema::create('auditees', function (Blueprint $table) {
             $table->string('id_auditee', 25);
-            $table->string('lecturer_id', 25);
+            $table->string('user_id', 25);
             $table->string('department_id', 12);
             $table->year('start_at');
             $table->year('end_at');
             $table->timestamps();
 
             $table->primary('id_auditee');
-            $table->foreign('lecturer_id')->references('id_lecturer')->on('lecturers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('department_id')->references('id_department')->on('departments')->onDelete('cascade')->onUpdate('cascade');
         });
     }

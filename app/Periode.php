@@ -7,7 +7,7 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Periode extends Model
 {
-    protected $fillable = ['id_periode', 'book_id', 'audit_start_at', 'audit_end_at'];
+    protected $fillable = ['id_periode', 'instrument_id', 'audit_start_at', 'audit_end_at'];
     protected $primaryKey = 'id_periode';
     public $incrementing = false;
 
@@ -15,9 +15,11 @@ class Periode extends Model
     public function book (){
         return $this->belongsTo(Book::class,'book_id','id_book');
     }
-    public function Instrument(){
-        return $this->hasMany(AuditInstrument::class);
+
+    public function instrument (){
+        return $this->belongsTo(Instrument::class,'instrument_id','id_instrument');
     }
+
     public function audit(){
         return $this->hasMany(Audit::class);
     }
@@ -26,8 +28,8 @@ class Periode extends Model
     {
         return [
             'id_periode' => [
-                'format' => 'P-?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'P-?',
+                'length' => 3
             ]
         ];
     }

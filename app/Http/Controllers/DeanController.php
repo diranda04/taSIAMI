@@ -13,15 +13,14 @@ class DeanController extends Controller
 {
     public function index(){
         $deans = Dean::orderBy('start_at', 'desc')->get();
-        $lecturers = Lecturer::leftJoin('users', 'users.id', '=', 'lecturers.id_lecturer')
-        ->where('role_id', '=', 4)->get();
+        $users = User::where('role_id', '=', 4)->get();
         $faculties = Faculty::all();
-        return view('dean.index', compact('deans','lecturers','faculties'));
+        return view('dean.index', compact('deans','users','faculties'));
     }
 
     public function store(Request $request){
         $deans = new Dean ([
-            'lecturer_id' => $request->input('lecturerSelect'),
+            'user_id' => $request->input('userSelect'),
             'faculty_id' => $request->input('facultySelect'),
             'start_at' => $request->input('start_at'),
             'end_at' => $request->input('end_at'),

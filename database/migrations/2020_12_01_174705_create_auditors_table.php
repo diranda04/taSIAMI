@@ -20,7 +20,7 @@ class CreateAuditorsTable extends Migration
             $table->timestamps();
 
             $table->primary('id_auditor');
-            $table->foreign('id_auditor')->references('id_lecturer')->on('lecturers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_auditor')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

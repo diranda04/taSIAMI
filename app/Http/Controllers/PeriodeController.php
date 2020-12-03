@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Periode;
-use App\Book;
+use App\Instrument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -11,13 +11,13 @@ class PeriodeController extends Controller
 {
     public function index(){
         $periodes = Periode::paginate(5);
-        $books = Book::all();
-        return view ('periode.index', compact('periodes', 'books'));
+        $instruments = Instrument::all();
+        return view ('periode.index', compact('periodes', 'instruments'));
     }
 
     public function store(Request $request){
         $periodes = new Periode ([
-            'book_id' => $request->input('bookSelect'),
+            'instrument_id' => $request->input('instrumentSelect'),
             'audit_start_at' => Carbon::parse($request->input('audit_start_at')),
             'audit_end_at' => Carbon::parse($request->input('audit_end_at')),
         ]);

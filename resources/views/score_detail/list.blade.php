@@ -41,6 +41,14 @@
                                                 data-target="#editDetail" data-id_score_detail="{{$score_detail->id_score_detail}}" data-desc="{{$score_detail->desc}}">
                                                 <span class="cil-pencil btn-icon mr-2"></span>Edit
                                             </a>
+                                            <form action="{{ route('detail.destroy',[$score_detail->id_score_detail]) }}"
+                                                method="post" onclick="return confirm('Anda yakin menghapus data ?')"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-youtube">
+                                                    <span class="cil-trash btn-icon mr-2"></span>Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -71,7 +79,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="formGroupExampleInput">Skor</label>
-                        <input type="text" name="score" class="form-control" id="score" placeholder="0-5">
+                        <input type="text" name="score" class="form-control" id="score" placeholder="0-4">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Keterangan</label>

@@ -28,10 +28,9 @@ class Department extends Model
     {
         return [
             'id_department' => [
-                'format' => 'PS-UA?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'PS-UA?',
+                'length' => 3
             ]
         ];
     }
-
 }

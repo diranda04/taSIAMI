@@ -15,10 +15,12 @@ class CreateStandardsTable extends Migration
     {
         Schema::create('standards', function (Blueprint $table) {
             $table->string('id_standard', 12);
+            $table->string('instrument_id', 6);
             $table->string('name', 100);
             $table->timestamps();
 
             $table->primary('id_standard');
+            $table->foreign('instrument_id')->references('id_instrument')->on('instruments')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

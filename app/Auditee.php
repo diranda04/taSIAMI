@@ -7,7 +7,7 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 
 class Auditee extends Model
 {
-    protected $fillable = ['id_auditee','lecturer_id','department_id','start_at','end_at'];
+    protected $fillable = ['id_auditee','user_id','department_id','start_at','end_at'];
     protected $primaryKey = 'id_auditee';
     public $incrementing = false;
 
@@ -15,8 +15,8 @@ class Auditee extends Model
         return $this->belongsTo(Department::class,'department_id','id_department');
     }
 
-    public function lecturer (){
-        return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id_lecturer');
+    public function user (){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function audit(){

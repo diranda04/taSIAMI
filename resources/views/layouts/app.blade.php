@@ -40,7 +40,6 @@
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
 
-
     <script>
       window.dataLayer = window.dataLayer || [];
 
@@ -63,28 +62,17 @@
       @include('layouts.header')
 
       <div class="c-body">
-
         <main class="c-main">
-
           @yield('content')
-
         </main>
-
       </div>
       @include('layouts.footer')
-
       </body>
-
-
     <!-- CoreUI and necessary plugins-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/coreui-utils.js') }}"></script>
     <script src="{{ asset('assets\air-datepicker\dist\js\datepicker.js')}}"></script>
-    @yield('javascript') 
-
-
-
-
+    @yield('javascript')
   </body>
 </html>

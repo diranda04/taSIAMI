@@ -19,8 +19,8 @@ class ScoreDetail extends Model
     {
         return [
             'id_score_detail' => [
-                'format' => 'D-'.date('Y').'-?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'D-'.date('Y').'-?',
+                'length' => 3
             ]
         ];
     }

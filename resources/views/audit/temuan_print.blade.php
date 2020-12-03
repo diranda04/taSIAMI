@@ -48,10 +48,7 @@ function Tanggal($date) {
     return $tanggal;
 }
 ?>
-
-
     <table style="width:100%">
-
         <tr>
             <td>Teraudit</td>
             <td>:</td>
@@ -83,7 +80,6 @@ function Tanggal($date) {
         </tr>
     </table>
 <br>
-
     <table style="width:100%">
         <thead >
             <tr>
@@ -102,7 +98,5 @@ function Tanggal($date) {
             @endforeach
         </tbody>
     </table>
-
 </body>
-
 </html>

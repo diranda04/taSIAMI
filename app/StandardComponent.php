@@ -25,8 +25,8 @@ class StandardComponent extends Model
     {
         return [
             'id_standard_component' => [
-                'format' => 'KS-?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'KS-?',
+                'length' => 3 
             ]
         ];
     }

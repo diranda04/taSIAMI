@@ -22,7 +22,7 @@
                             <tbody>
                                 @foreach ($department_audits as $department_audit)
                                 <tr class="text-center">
-                                    <td class="border-right">{{$department_audit->auditor->lecturer->user->name}}</td>
+                                    <td class="border-right">{{$department_audit->auditor->user->name}}</td>
                                     <td class="border-right">
                                         {{Carbon\Carbon::parse($department_audit->audit->periode->audit_start_at)->format('Y') }}-{{$department_audit->audit->department->department_name}}
                                     </td>
@@ -57,7 +57,7 @@
                                     <select name="auditorSelect" class="form-control" id="exampleFormControlSelect3">
                                         <option selected disabled value=""></option>
                                         @foreach ($auditors as $auditor)
-                                        <option value="{{$auditor->id_auditor}}">{{$auditor->lecturer->user->name}}
+                                        <option value="{{$auditor->id_auditor}}">{{$auditor->user->name}}
                                         </option>
                                         @endforeach
                                     </select>

@@ -13,18 +13,15 @@
             Kelola User</a>
         <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/user">Daftar User</a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/dosen">Daftar Dosen</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/dekan">Daftar Dekan</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/kajur">Daftar Ketua Jurusan</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditor">Daftar Auditor</a></li>
         </ul>
     </li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/standard">
-            <i class="c-sidebar-nav-icon cil-pencil"></i>
-            Kelola Standar AMI</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/audit_book">
+
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/instrument">
             <i class="c-sidebar-nav-icon cil-book"></i>
-            Kelola Versi Instrumen AMI</a></li>
+            Kelola Instrumen AMI</a></li>
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/periode">
             <i class="c-sidebar-nav-icon cil-calendar"></i>
             Kelola Periode AMI</a></li>

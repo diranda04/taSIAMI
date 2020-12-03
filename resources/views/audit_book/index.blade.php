@@ -19,15 +19,15 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    @foreach ($books as $book)
+                                    @foreach ($instruments as $instrument)
                                     <tr>
                                         <th class="border-right" scope="row">{{$loop->iteration}}.</th>
-                                        <td class="border-right">{{$book->book_name}}</td>
+                                        <td class="border-right">{{$instrument->instrument_name}}</td>
                                         <td>
-                                        <a href="{{ route('instrument.index',[$book->id_book]) }}"
+                                        <a href="{{ route('instrument.detail',[$instrument->id_instrument]) }}"
                                                 class="btn btn-success"><span class="cil-education btn-icon mr-2"></span>Daftar Isi</a>
                                             </a>
-                                        <form action="{{ route('book.destroy',[$book->id_book]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
+                                        <form action="{{ route('instrument.destroy',[$instrument->id_instrument]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-youtube">
@@ -54,11 +54,11 @@
         <div class="card">
           <h5><div class="card-header"><i class="fa fa-align-justify"></i>Tambah Versi Instrumen AMI</div></h5>
             <div class="card-body">
-              <form action="{{route('book.post')}}" method="POST">
+              <form action="{{route('instrument.post')}}" method="POST">
                 @csrf
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Tambahkan Versi AMI</label>
-                  <input type="text" class="form-control-file" id="book_name" name="book_name" placeholder="  judul instrumen . . ">
+                  <input type="text" class="form-control-file" id="instrument_name" name="instrument_name" placeholder="  judul instrumen . . ">
                 </div>
                 <button type="submit" class="btn btn-primary"><span class="cil-save btn-icon mr-2"></span>Simpan</button>
                 </div>

@@ -24,7 +24,7 @@
                                 <tbody class="text-center">
                                     @foreach ($auditees as $auditee)
                                     <tr>
-                                        <td class="border-right">{{$auditee->lecturer->user->name}}</td>
+                                        <td class="border-right">{{$auditee->user->name}}</td>
                                         <td class="border-right">{{$auditee->department->department_name}}</td>
                                         <td class="border-right">{{$auditee->start_at}}</td>
                                         <td class="border-right">{{$auditee->end_at}}</td>
@@ -54,10 +54,10 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Nama</label>
-                                    <select name="lecturerSelect" class="form-control" id="exampleFormControlSelect1">
+                                    <select name="userSelect" class="form-control" id="exampleFormControlSelect1">
                                     <option selected disabled value=""></option>
-                                        @foreach ($lecturers as $lecturer)
-                                        <option value="{{$lecturer->id_lecturer}}">{{$lecturer->user->name}}</option>
+                                        @foreach ($users as $user)
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

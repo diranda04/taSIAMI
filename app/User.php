@@ -10,29 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['id', 'name','username', 'email', 'password', 'role_id'];
     protected $primaryKey = 'id';
     public $incrementing = false;
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -46,5 +32,16 @@ class User extends Authenticatable
         return $this->hasOne(Lecturer::class, 'id_lecturer', 'id');
     }
 
+    public function auditor(){
+        return $this->hasOne(Auditor::class, 'id_auditor', 'id');
+    }
+
+    public function auditee(){
+        return $this->hasMany(Auditee::class,'user_id', 'id');
+    }
+
+    public function dean(){
+        return $this->hasMany(Dean::class, 'user_id', 'id');
+    }
 
 }

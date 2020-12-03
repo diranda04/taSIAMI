@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Auditee;
-use App\Lecturer;
+use App\User;
 use App\Department;
 use Illuminate\Http\Request;
 
 class AuditeeController extends Controller
 {
     public function index(){
-        $auditees = Auditee::orderBy('start_at', 'desc')->get();
-        $lecturers = Lecturer::leftJoin('users', 'users.id', '=', 'lecturers.id_lecturer')->where('role_id', '=', 3)->get();
+        $auditees = Auditee::orderBy('start_at','desc')->get();
+        $users = User::where('role_id','=', 3)->get();
         $departments = Department::all();
-        return view('auditee.index', compact('auditees','lecturers','departments'));
+        return view('auditee.index', compact('auditees','users','departments'));
     }
 
     public function store(Request $request){
         $auditees = new Auditee ([
-            'lecturer_id' => $request->input('lecturerSelect'),
+            'user_id' => $request->input('userSelect'),
             'department_id' => $request->input('departmentSelect'),
             'start_at' => $request->input('start_at'),
             'end_at' => $request->input('end_at'),

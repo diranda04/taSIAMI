@@ -74,7 +74,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('component.post',[$id_standard])}}" method="POST">
+                <form action="{{route('component.post',[$id_standard])}}" method="POST"> 
                     @csrf
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Keterangan</label>

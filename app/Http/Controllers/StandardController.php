@@ -15,14 +15,22 @@ class StandardController extends Controller
         return view ('standard.list', compact('standards'));
     }
 
-    public function store(Request $request){
+    public function detailInstrument($id_instrument){
+        $standards = Standard::where('instrument_id',$id_instrument)->paginate(10);
+        $instrument = Instrument::where('id_instrument',$id_instrument)->first();
+        return view ('standard.list', compact('standards', 'instrument', 'id_instrument'));
+    }
+
+    public function store(Request $request, $id_instrument){
         $standards = new Standard ([
             'name' => $request->input('name'),
+            'instrument_id' => $id_instrument,
         ]);
         $standards -> save();
         \Session::flash('sukses','Standar berhasil di tambahkan');
         return redirect()->back();
     }
+
 
     public function update(Request $request){
         $standards = Standard::find($request->id_standard);

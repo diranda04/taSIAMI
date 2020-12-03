@@ -24,8 +24,8 @@ class Faculty extends Model
     {
         return [
             'id_faculty' => [
-                'format' => 'FUA?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 3 // The number of digits in an autonumber
+                'format' => 'FUA?',
+                'length' => 3
             ]
         ];
     }

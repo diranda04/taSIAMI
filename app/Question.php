@@ -35,10 +35,9 @@ class Question extends Model
     {
         return [
             'id_question' => [
-                'format' => 'Q?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 4 // The number of digits in an autonumber
+                'format' => 'Q?',
+                'length' => 4
             ]
         ];
     }
-
 }

@@ -23,7 +23,7 @@
                                         @foreach ($standards as $standard)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $standard["standard_component"] }}</td>
+                                            <td>{{ $standard["standard"] }}</td>
                                             <td>{{ $standard["rata_rata"] }}</td>
                                         </tr>
                                         @endforeach

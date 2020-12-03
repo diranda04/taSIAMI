@@ -17,45 +17,19 @@ class AuditScoreController extends Controller
 {
     public function indexAuditee($id_audit)
     {
-        $standards = Standard::paginate(1);
+        $standards = Standard::with("standardComponent")->join("instruments","standards.instrument_id","instruments.id_instrument")->join("periodes","instruments.id_instrument","periodes.instrument_id")->join("audits","periodes.id_periode","audits.periode_id")->where("audits.id_audit",$id_audit)->paginate(1);
         $department = Department::join('audits', 'audits.department_id', '=', 'departments.id_department')->where('id_audit',$id_audit)->first();
-        // $audits = Audit::select('standards.name','standard_components.desc','questions.id_question', 'questions.desc', 'audits.id_audit', 'audit_scores.id_audit_score',DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditee else '' end as score_auditee "), DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditor else '' end as score_auditor "))
-        // ->join('periodes', 'periodes.id_periode','=', 'audits.periode_id')
-        // ->join('books', 'books.id_book','=','periodes.book_id')
-        // ->join('instruments', 'instruments.book_id', 'books.id_book')
-        // ->join('standards', 'standards.id_standard', '=', 'instruments.standard_id')
-        // ->join('standard_components', 'standard_components.standard_id', '=', 'standards.id_standard')
-        // ->join('questions', 'questions.standard_component_id', '=', 'standard_components.id_standard_component')
-        // ->where('id_audit', $id_audit)
-        // ->leftjoin('audit_scores', 'questions.id_question','=','audit_scores.question_id')
-        // ->get();
-        // ->paginate(10);
-        // dd($audits);
+
         $score_details = ScoreDetail::all();
         return view ('auditee.input_skor', compact('standards', 'department','score_details', 'id_audit'));
     }
     public function indexAuditor($id_audit)
     {
-        $standards = Standard::paginate(1);
-        // $audits = Standard::
-        // whereRaw("id_standard in (select standard_id from instruments where periode_id in (select periode_id from audits where id_audit = '$id_audit'))")->get();
 
-        // $audits = Audit::select('questions.id_question', 'questions.desc', 'audits.id_audit', 'audit_scores.id_audit_score',DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditee else '' end as score_auditee "), DB::RAW("case when audit_scores.audit_id = '$id_audit' then audit_scores.score_auditor else '' end as score_auditor "))
-        // ->join('periodes', 'periodes.id_periode','=', 'audits.periode_id')
-        // ->join('books', 'books.id_book','=','periodes.book_id')
-        // ->join('instruments', 'instruments.book_id', 'books.id_book')
-        // ->join('standards', 'standards.id_standard', '=', 'instruments.standard_id')
-        // ->join('standard_components', 'standard_components.standard_id', '=', 'standards.id_standard')
-        // ->join('questions', 'questions.standard_component_id', '=', 'standard_components.id_standard_component')
-        // ->where('id_audit', $id_audit)
-        // ->leftjoin('audit_scores', 'questions.id_question','=','audit_scores.question_id')
-        // ->get();
-        // ->paginate(10);
-        // dd($standard[0]->standardComponent[0]->question[0]->nilaiFromAUdit($id_audit)->first()->score_auditee);
-        // dd($standard);
+        $standards = Standard::with("standardComponent")->join("instruments","standards.instrument_id","instruments.id_instrument")->join("periodes","instruments.id_instrument","periodes.instrument_id")->join("audits","periodes.id_periode","audits.periode_id")->where("audits.id_audit",$id_audit)->paginate(1);
+
         $department = Department::join('audits', 'audits.department_id', '=', 'departments.id_department')->where('id_audit',$id_audit)->first();
         $score_details = ScoreDetail::all();
-        // $audit_scores = AuditScore::where('audit_id', $id_audit)->get();
         return view ('auditor.input_skor', compact('standards','score_details','department', 'id_audit'));
     }
 
@@ -78,7 +52,7 @@ class AuditScoreController extends Controller
                 'score_auditee' => $request->input('score_auditee'),
             ]);
             $audit_scores->save();
-            return redirect()->back()->with('message', 'Detail penilaian berhasil diubah');
+            return redirect()->back()->with('message', 'Skor Berhasil Ditambahkan');
         }else{
             \Session::flash('sukses','Data sudah ada');
             return redirect()->back();
@@ -100,14 +74,12 @@ class AuditScoreController extends Controller
                 ]);
             $audit_scores -> score_auditor = $request -> input ('score_auditor');
             $audit_scores->save();
-            return redirect()->back()->with('message', 'Detail penilaian berhasil diubah');
+            return redirect()->back()->with('message', 'Skor Berhasil Ditambahkan');
         }else{
             \Session::flash('sukses','Data sudah ada');
             return redirect()->back();
         }
     }
 
-    public function destroy(AuditScore $auditScore){
-        //
-    }
+
 }

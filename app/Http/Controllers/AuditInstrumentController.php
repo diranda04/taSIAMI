@@ -15,16 +15,9 @@ use PDF;
 
 class AuditInstrumentController extends Controller
 {
-    public function index($id_book){
-        $instruments = Instrument:: where('book_id',$id_book)->get();
-        $standards = Standard::whereNotExists(function($query){
-            $query->select(DB::raw(1))
-                    ->from('instruments')
-                    ->whereRaw('instruments.standard_id = standards.id_standard');
-            })
-            ->get();
-        $book = Book:: where('id_book',$id_book)->first();
-        return view ('instrument.index', compact('instruments','book','standards', 'id_book'));
+    public function index(){
+        $instruments = Instrument::all();
+        return view ('audit_book.index', compact('instruments'));
     }
 
     public function printReport($id_audit){
@@ -55,16 +48,18 @@ class AuditInstrumentController extends Controller
     }
 
     public function lihatReport($id_audit){
+        $querys = Standard::join("instruments","standards.instrument_id","instruments.id_instrument")->join("periodes","instruments.id_instrument","periodes.instrument_id")->join("audits","periodes.id_periode","audits.periode_id")->where("audits.id_audit",$id_audit)->get();
+        // dd($querys);
         try {
         $standards = Standard::all();
-        $standardAudits = Standard::paginate(1);
+        $standardAudits = Standard::with("standardComponent")->join("instruments","standards.instrument_id","instruments.id_instrument")->join("periodes","instruments.id_instrument","periodes.instrument_id")->join("audits","periodes.id_periode","audits.periode_id")->where("audits.id_audit",$id_audit)->paginate(1);
         $questions = Question::select('questions.id_question', 'questions.desc','audit_scores.id_audit_score','audit_scores.score_auditee', 'audit_scores.score_auditor')
         ->leftjoin('audit_scores','questions.id_question','=','audit_scores.question_id')->where('audit_id', $id_audit)->paginate(10);
         $rata_rata = 0;
         $data = [];
         $standards_title = [];
         $graph_avg = [];
-        foreach($standards as $std){
+        foreach($querys as $std){
             $query = Question::select("standard_components.*","questions.*","audit_scores.*","audits.*")
             ->join("standard_components","questions.standard_component_id","=","standard_components.id_standard_component")
             ->join("audit_scores","questions.id_question","=","audit_scores.question_id")
@@ -77,7 +72,7 @@ class AuditInstrumentController extends Controller
             }
             $rata_rata = $rata_rata / $query->count();
             $data[] = [
-                "standard_component"    => $std->name,
+                "standard"    => $std->name,
                 "rata_rata"             => round($rata_rata,2)
             ];
             $standards_title[] = $std->name;
@@ -87,22 +82,24 @@ class AuditInstrumentController extends Controller
 
         return view ('audit.lihat_report',['standards'=> $data ,'graph_avg' => $graph_avg ,'standards_title' => $standards_title, 'questions'=>$questions, 'standardAudits'=>$standardAudits, 'id_audit'=>$id_audit]);
         } catch (\Throwable $th) {
-            \Session::flash('sukses','Pengisian skor audit belum diselesaikan');
+            throw $th;
+            // \Session::flash('sukses','Pengisian skor audit belum diselesaikan');
             return redirect()->back();
         }
     }
 
-    public function store(Request $request, $id_book){
+    public function store(Request $request){
         $instruments = Instrument::create ([
-            'standard_id' => $request->input('standardSelect'),
-            'book_id' => $id_book,
+            'instrument_name' => $request->input('instrument_name'),
         ]);
         $instruments->save();
+        \Session::flash('sukses','Berhasil menambahkan judul buku');
         return redirect ()->back();
     }
 
+
     public function destroy($id){
         $instruments = Instrument::find($id)->delete();
-        return redirect()->back()->with('message', 'Dekan berhasil dihapus');
+        return redirect()->back()->with('message', 'Data berhasil dihapus');
     }
 }
