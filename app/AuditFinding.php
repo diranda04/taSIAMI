@@ -21,8 +21,8 @@ class AuditFinding extends Model
     {
         return [
             'id_audit_finding' => [
-                'format' => 'AF-?',
-                'length' => 5
+                'format' => 'AF?',
+                'length' => 3
             ]
         ];
     }

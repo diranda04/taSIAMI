@@ -29,6 +29,7 @@
                                         <td class="border-right">{{$loop->iteration}}.</td>
                                         <td class="border-right">{{$instrument->standard->name}}</td>
                                         <td>
+                                        
                                             <form action="{{ route ('instrument.destroy',[$instrument->id])}}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')

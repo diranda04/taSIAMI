@@ -17,6 +17,7 @@
                                 <tr class="text-center">
                                     <th class="border-right">Periode</th>
                                     <th class="border-right">Prodi</th>
+                                    <th class="border-right">Auditor</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -26,6 +27,13 @@
                                     <td class="border-right">
                                         {{Carbon\Carbon::parse($audit->periode->audit_start_at)->format('Y')}}</td>
                                     <td class="border-right">{{$audit->department->department_name}}</td>
+                                    <td class="border-right">
+                                    @foreach($audit->departmentAudit as $data)
+                                                <ul>
+                                                {{$data->auditor->user->name}}
+                                                </ul>
+                                            @endforeach
+                                    </td>
                                     <td>
                                         <a href="{{ route('report.lihat',[$audit->id_audit]) }}"
                                             class="btn btn-behance">

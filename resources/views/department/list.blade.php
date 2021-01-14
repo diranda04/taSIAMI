@@ -65,11 +65,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Akreditasi</label>
-                                    <input type="text" class="form-control-file" id="accreditation" name="accreditation">
+                                    <input type="text" class="form-control-file" id="accreditation" name="accreditation" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">No.SK/Link</label>
-                                    <input type="text" class="form-control-file" id="sk_num" name="sk_num">
+                                    <input type="text" class="form-control-file" id="sk_num" name="sk_num" required>
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -118,7 +118,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
             </form>
         </div>

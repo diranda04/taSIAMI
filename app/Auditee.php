@@ -11,11 +11,11 @@ class Auditee extends Model
     protected $primaryKey = 'id_auditee';
     public $incrementing = false;
 
-    public function department (){
+    public function department(){
         return $this->belongsTo(Department::class,'department_id','id_department');
     }
 
-    public function user (){
+    public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 

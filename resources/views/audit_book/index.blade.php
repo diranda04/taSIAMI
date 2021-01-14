@@ -26,7 +26,13 @@
                                         <td>
                                         <a href="{{ route('instrument.detail',[$instrument->id_instrument]) }}"
                                                 class="btn btn-success"><span class="cil-education btn-icon mr-2"></span>Daftar Isi</a>
-                                            </a>
+                                        </a>
+                                        <a href="" class="btn btn-behance" id="editButton" data-toggle="modal"
+                                            data-target="#editInstrument"
+                                            data-id_instrument="{{$instrument->id_instrument}}"
+                                            data-instrument_name="{{$instrument->instrument_name}}">
+                                            <span class="cil-pencil btn-icon mr-2"></span>Edit
+                                        </a>
                                         <form action="{{ route('instrument.destroy',[$instrument->id_instrument]) }}" method="post" onclick="return confirm('Anda yakin menghapus data ?')" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -58,7 +64,7 @@
                 @csrf
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Tambahkan Versi AMI</label>
-                  <input type="text" class="form-control-file" id="instrument_name" name="instrument_name" placeholder="  judul instrumen . . ">
+                  <input type="text" class="form-control-file" id="instrument_name" name="instrument_name" placeholder="  judul instrumen . . " required>
                 </div>
                 <button type="submit" class="btn btn-primary"><span class="cil-save btn-icon mr-2"></span>Simpan</button>
                 </div>
@@ -74,8 +80,48 @@
 </div>
 </div>
 
-@section('javascript')
+<div class="modal fade" id="editInstrument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Nama Versi Instrumen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('instrument.edit')}}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" class="form-control-file" id="edit_id" name="id_instrument">
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Keterangan</label>
+                        <input type="text" class="form-control-file" id="edit_name" name="instrument_name">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary"><span
+                        class="cil-save btn-icon mr-2"></span>Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+@section('javascript')
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "#editButton", function () {
+            var id_instrument = $(this).data("id_instrument");
+            var instrument_name = $(this).data("instrument_name");
+            $("#edit_id").val(id_instrument);
+            $("#edit_name").val(instrument_name);
+            console.log(id_instrument);
+        })
+    })
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
         var flash = "{{ Session::has('sukses') }}";

@@ -24,8 +24,8 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pt-0">
-                    <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div><a class="dropdown-item"
-                        href="#">
+                    <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div>
+                    <a class="dropdown-item" href="{{ route('user.profile')}}">
                         <i class="c-sidebar-nav-icon cil-user"></i>
                         Profile</a><a class="dropdown-item" href="#">
                         <svg class="c-icon mr-2">

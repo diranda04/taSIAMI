@@ -78,13 +78,18 @@
                 <form action="{{route('detail.post',[$id_question])}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Skor</label>
-                        <input type="text" name="score" class="form-control" id="score" placeholder="0-4">
+                    <select name="score" class="form-control" id="score">
+                        <option selected="">0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Keterangan</label>
                         <textarea type="text" name="desc" class="form-control" id="desc" placeholder="" cols="30"
-                            rows="5"></textarea>
+                            rows="5" required></textarea>
                     </div>
             </div>
             <div class="modal-footer">
@@ -109,13 +114,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('detail.edit',[$id_question])}}" method="POST">
+                <form action="{{route('detail.edit', [$id_question])}}" method="POST">
                     @csrf
                     @method('PATCH')
-                        <input type="hidden" class="form-control-file" id="edit_id" name="id_score_detail">
+                    <input type="hidden" class="form-control-file" id="edit_id" name="id_score_detail">
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Keterangan</label>
-                        <textarea type="text" class="form-control-file" id="edit_desc" name="desc"></textarea>
+                        <label for="exampleFormControlFile1">Keterangan</label>
+                        <textarea type="text" class="form-control" id="edit_name" name="desc" cols="30" rows="5"></textarea>
                     </div>
             </div>
             <div class="modal-footer">
@@ -135,10 +140,9 @@
             var id_score_detail = $(this).data("id_score_detail");
             var desc = $(this).data("desc");
             $("#edit_id").val(id_score_detail);
-            $("#edit_desc").val(desc);
+            $("#edit_name").val(desc);
             console.log(id_score_detail);
         })
     })
-
 </script>
 @endsection

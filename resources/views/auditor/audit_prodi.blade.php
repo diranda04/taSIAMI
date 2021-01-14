@@ -14,6 +14,7 @@
                                     <tr class="text-center">
                                         <th class="border-right">Periode</th>
                                         <th class="border-right">Prodi</th>
+                                        <th class="border-right">Auditor</th>
                                         <th class="border-right">Skor Audit</th>
                                         <th class="border-right">Temuan Audit</th>
                                         <th>Permintaan Tindak Koreksi</th>
@@ -25,6 +26,11 @@
                                     <tr class="text-center">
                                         <td class="border-right">{{Carbon\Carbon::parse($auditor->audit_start_at)->format('Y')}}</td>
                                         <td class="border-right">{{$auditor->department_name}}</td>
+                                        <td>
+                                            @foreach($test->where('id_audit',$auditor->id_audit) as $data_auditor)
+                                            <ul>{{ $data_auditor->name }}</ul>
+                                            @endforeach
+                                        </td>
                                         <td class="border-right">
                                         <a href="{{ route('skoraudit.view',[$auditor->id_audit]) }}" class="btn btn-danger">
                                         <span class="cil-pencil btn-icon mr-2"></span> Isi
@@ -41,7 +47,7 @@
                                         <span class="cil-description btn-icon mr-2"></span>Lihat PTK
                                         </a>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

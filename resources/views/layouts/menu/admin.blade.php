@@ -14,7 +14,7 @@
         <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/user">Daftar User</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/dekan">Daftar Dekan</a></li>
-            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/kajur">Daftar Ketua Jurusan</a></li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/kajur">Daftar Auditee</a></li>
             <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/auditor">Daftar Auditor</a></li>
         </ul>
     </li>

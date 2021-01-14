@@ -48,7 +48,7 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-success" data-toggle="modal"
-                                            data-target="#viewDetail" id='detailSkor' data-id="{{$q->id_question}}"
+                                            data-target="#viewDetail" id='detailSkor' @if($q->nilaiFromAudit($id_audit)->first() != "") data-id_audit_score="{{ $q->nilaiFromAudit($id_audit)->first()->id_audit_score }}" @endif data-id="{{$q->id_question}}"
                                             onClick="setIdQuestion('{{$q->id_question}}')">
                                             <i class="cil-pencil"></i>
                                         </button>
@@ -93,9 +93,62 @@
                 </table>
                 <form action="#" id="auditorScore" method="POST">
                     @csrf
+                    <input type="hidden" name="id_score_audit" class="score_audit_id">
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Tambah Skor</label>
-                        <input type="int" name="score_auditor" class="form-control" id="score_auditor" placeholder="">
+                        <select type="int" name="score_auditor" class="form-control" id="score_auditor">
+                        <option selected="">0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" onClick="addScore()" class="btn btn-primary">Simpan</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- view edit score -->
+<div class="modal fade" id="editScore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detial Pengisian Skor Audit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-responsive-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Skor</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body_table">
+                    </tbody>
+                </table>
+                <form action="#" id="auditorScore" method="POST">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Tambah Skor</label>
+                        <select type="int" name="score_auditor" class="form-control" id="score_auditor">
+                        <option selected="">0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        </select>
                     </div>
             </div>
             <div class="modal-footer">
@@ -118,9 +171,13 @@
         $('#addScore').modal('show');
         $('#auditorScore').attr('action', baseUrl);
     }
+
     $(document).on("click", "#detailSkor", function () {
         var id = $(this).data("id");
         var base_url = "{{ url('/') }}";
+        var id_score_audit = $(this).data("id_audit_score");
+        $(".score_audit_id").val(id_score_audit);
+
         var rows = '';
 
         $.ajax({
@@ -139,6 +196,17 @@
             }
         });
     });
+
+
+    $(document).ready(function () {
+        $(document).on("click", "#detailSkor", function () {
+            var id_audit_score = $(this).data("id_audit_score");
+            var score_auditor = $(this).data("score_auditor");
+            $("#id_audit_score").val(id_audit_score);
+            $("#score_auditor").val(score_auditor);
+            console.log(id_audit_score);
+        })
+    })
 
 </script>
 <script type="text/javascript">

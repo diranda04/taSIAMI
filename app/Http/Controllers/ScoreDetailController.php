@@ -15,7 +15,7 @@ class ScoreDetailController extends Controller
             'desc' => $request->input('desc'),
         ]);
         $score_details->save();
-        return redirect()->back()->with('message', 'Detail penilaian berhasil ditambahkan');
+        return redirect()->route('score_detail.detail',[$id_question])->with('message', 'Detail penilaian berhasil ditambahkan');
     }
 
     public function detailComponent($id_question){
@@ -32,7 +32,7 @@ class ScoreDetailController extends Controller
     }
 
     public function destroy($id_score_detail){
-        $score_details = Score_detail::find($id_score_detail)->delete();
+        $score_details = ScoreDetail::find($id_score_detail)->delete();
         return redirect()->back()->with('message', 'Detail penilaian berhasil dihapus');
     }
 }

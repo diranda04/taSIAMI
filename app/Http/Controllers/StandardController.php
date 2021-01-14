@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class StandardController extends Controller
 {
-    public function index(){
-        $standards = Standard::orderBy('name', 'asc')->paginate(10);
-        return view ('standard.list', compact('standards'));
-    }
-
     public function detailInstrument($id_instrument){
         $standards = Standard::where('instrument_id',$id_instrument)->paginate(10);
         $instrument = Instrument::where('id_instrument',$id_instrument)->first();

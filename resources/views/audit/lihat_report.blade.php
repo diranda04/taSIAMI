@@ -38,7 +38,13 @@
                         <br>
                         <div clas="card-body">
                             <canvas id="marksChart" width="200" height="100"></canvas>
+
                         </div>
+                        <!-- <form action="/print_chart" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="chartData" id="chartInputData">
+                            <input type="submit" value="Print Chart">
+                        </form> -->
                         <br>
                     </div>
                     <div class="card">
@@ -116,7 +122,11 @@
                 }
             },
             legend: {
-                position: 'left'
+                position: 'center'
+            },
+            bezierCurve : false,
+            animation: {
+                onComplete: done
             }
         };
 
@@ -126,6 +136,15 @@
             options: chartOptions
         });
 
+        function done(){
+        var url=radarChart.toBase64Image();
+        document.getElementById("url").src=url;
+        }
+
+        setTimeout(function(){
+                                let chartsData = $("#url").html();
+                                $("#chartInputData").val(chartsData);
+                            },1000);
     </script>
 
     @endsection

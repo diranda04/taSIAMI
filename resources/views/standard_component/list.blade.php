@@ -74,12 +74,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('component.post',[$id_standard])}}" method="POST"> 
+                <form action="{{route('component.post',[$id_standard])}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Keterangan</label>
                         <textarea type="text" name="desc" class="form-control" id="desc" placeholder="" cols="30"
-                            rows="3"></textarea>
+                            rows="3" required></textarea>
                     </div>
             </div>
             <div class="modal-footer">

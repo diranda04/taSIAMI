@@ -26,7 +26,7 @@ class FacultyController extends Controller
     public function update(Request $request)
     {
             $faculties = Faculty::find($request->id_faculty);
-            $faculties -> name = $request ->input ('name');
+            $faculties -> name = $request ->input ('name'); 
             $faculties -> save();
             \Session::flash('sukses','Fakultas berhasil diubah');
             return redirect()->back();

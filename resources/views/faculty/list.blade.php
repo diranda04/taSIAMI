@@ -57,7 +57,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Nama Fakultas</label>
-                                    <input type="text" class="form-control-file" id="name" name="name">
+                                    <input type="text" class="form-control-file" id="name" name="name" required>
                                 </div>
                         </div>
                         <div class="modal-footer">

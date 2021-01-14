@@ -8,6 +8,8 @@ use Alfa6661\AutoNumber\AutoNumberTrait;
 class ScoreDetail extends Model
 {
     protected $fillable = ['id_score_detail','question_id','score','desc'];
+    protected $primaryKey = 'id_score_detail';
+    public $incrementing = false;
 
     public function question()
     {

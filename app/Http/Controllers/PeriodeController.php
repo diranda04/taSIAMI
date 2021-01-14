@@ -26,6 +26,17 @@ class PeriodeController extends Controller
         return redirect()->back();
     }
 
+    public function update(Request $request)
+    {
+        $periodes = Periode::find($request->id_periode );
+        $periodes -> instrument_id = $request ->input ('instrumentSelect');
+        $periodes -> audit_start_at =  Carbon::$request -> input('audit_start_at');
+        $periodes -> audit_end_at =  Carbon::$request -> input('audit_end_at');
+        $periodes -> save();
+        \Session::flash('sukses','Periode berhasil diubah');
+        return redirect()->back();
+    }
+
     public function destroy($id_periode){
         $periodes = Periode::find($id_periode)->delete();
         \Session::flash('sukses','Periode audit berhasil dihapus');

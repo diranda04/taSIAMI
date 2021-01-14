@@ -76,7 +76,7 @@ function Tanggal($date) {
 
   <table style="width:100%">
   @php $no=2; @endphp
-@foreach($auditors as $auditor)
+  @foreach($auditors as $auditor)
     <tr>
       <td style="width:5%"> {{$no++}}</td>
       <td style="width:10%">Nama</td>
@@ -105,7 +105,7 @@ function Tanggal($date) {
 
   <p align="left"><font face="Arial">
     <strong>PIHAK PERTAMA</strong>  dan <strong>PIHAK KEDUA</strong>  secara bersama sama telah menyetujui hasil Audit Mutu Internal (AMI).
-    Program Studi S1 {{ $auditee->department->department_name }} Universitas Andalas tahun <?php echo date("Y");?>.
+    Program Studi {{ $auditee->department->department_name }} Universitas Andalas tahun <?php echo date("Y");?>.
   </font></p>
 
   <p align="left"><font face="Arial">

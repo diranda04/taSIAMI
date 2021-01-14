@@ -3,32 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use mikehaertl\wkhtmlto\Pdf;
+use PDF;
 
 class PrintChartController extends Controller
 {
     public function preview()
     {
-        return view('audit.chart');
+        return view('chart.test');
     }
 
-    public function download()
-    {
-        $render = view('audit.chart')->render();
+    public function print(Request $request){
 
-        $pdf = new Pdf;
-        $pdf->addPage($render);
-        $pdf->setOptions(['javascript-delay' => 5000]);
-        $pdf->saveAs(public_path('report.pdf'));
-
-        // if (!$pdf->send()) {
-        //     $error = $pdf->getError();
-        //     // ... handle error here
-        // }
-
-        // $content = $pdf->toString();
-        // return $pdf->stream();
-        return response()->download(public_path('report.pdf'));
+        $data = $request->chartData;
+    	$pdf = PDF::loadView('chart.temp',compact('data'));
+        // return $pdf->download('charts.pdf');
+        return $pdf->stream();
     }
 }
 

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <h5><div class="card-header"><i class="fa fa-align-justify"></i>STANDAR AMI</div></h5>
+                        <h5><div class="card-header"><i class="fa fa-align-justify"></i><strong>STANDAR AMI : </strong> {{$instrument->instrument_name}}</div></h5>
                         <div class="card-body">
                             <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
                                 data-target="#addStandard">
@@ -79,7 +79,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Keterangan</label>
-                        <input type="text" class="form-control-file" id="name" name="name">
+                        <input type="text" class="form-control-file" id="name" name="name" required>
                     </div>
             </div>
             <div class="modal-footer">

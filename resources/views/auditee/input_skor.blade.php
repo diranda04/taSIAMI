@@ -91,7 +91,13 @@
                     @csrf
                     <div class="form-group">
                         <label for="formGroupExampleInput2">Tambah Skor</label>
-                        <input type="int" name="score_auditee" class="form-control" id="score_auditee" placeholder="">
+                        <select type="int" name="score_auditee" class="form-control" id="score_auditee">
+                        <option selected="">0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        </select>
                     </div>
             </div>
             <div class="modal-footer">

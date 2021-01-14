@@ -31,6 +31,17 @@ class CorrectionFormController extends Controller
         return $pdf->stream();
     }
 
+    public function viewPTK($id_audit){
+        $correction_forms = CorrectionForm::where('audit_id',$id_audit)->get();
+        $departments = Department::leftJoin('audits', 'audits.department_id', '=', 'departments.id_department')
+        ->leftJoin('faculties', 'faculties.id_faculty', '=', 'departments.faculty_id')
+        ->where('id_audit',$id_audit)->first();
+        // dd($departments);
+        view()->share('correction_forms',$correction_forms);
+        $pdf = PDF::loadview('ptk_print',['correction_forms'=> $correction_forms, 'departments'=>$departments]);
+        return $pdf->stream();
+    }
+
     public function store(Request $request, $id_audit)
     {
         $correction_forms = CorrectionForm::create ([

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use Auth;
 
 class UserController extends Controller
 {
@@ -14,6 +15,11 @@ class UserController extends Controller
         return view('user.index', compact('users','roles'));
     }
 
+    public function profile(){
+        $users = User::where('id', Auth::user()->id)->get();
+        return view('profile', compact('users'));
+    }
+
     public function adduser(){
         $users = User::all();
         $roles = Role::all();
@@ -21,6 +27,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+        
         $users = User::create ([
             'id' => $request->input('id'),
             'name' => $request->input('name'),

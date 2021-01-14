@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
                 <div class="col-lg-12">
@@ -15,6 +15,7 @@
                                     <tr class="text-center">
                                         <th class="border-right">Periode</th>
                                         <th class="border-right">Prodi</th>
+                                        <th class="border-right">Auditor</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -22,9 +23,16 @@
                                 @foreach ($auditors as $auditor)
                                 <!-- @php $audit = $auditor->audit; @endphp -->
                                 <tr class="text-center">
-                                        <td class="border-right">{{Carbon\Carbon::parse($auditor->audit_start_at)->format('Y')}}</td>
-                                        <td class="border-right">{{$auditor->department_name}}</td>
-                                        <td >
+                                        <td class="border-right">{{Carbon\Carbon::parse($auditor->periode->audit_start_at)->format('Y')}}</td>
+                                        <td class="border-right">{{$auditor->department->department_name}}</td>
+                                        <td class="border-right">
+                                            @foreach($auditor->departmentAudit as $data)
+                                                <ul>
+                                                {{$data->auditor->user->name}}
+                                                </ul>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                         <a href="{{ route('report.lihat',[$auditor->id_audit]) }}" class="btn btn-behance">
                                         <span class="cil-print btn-icon mr-2"></span>Instrumen AMI
                                         </a>

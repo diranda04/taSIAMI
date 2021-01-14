@@ -24,9 +24,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    @foreach ($users as $no => $user)
+                                    @foreach ($users as $user)
                                     <tr>
-                                        <th class="border-right" scope="row">{{$users->firstItem()+$no }}.</th>
+                                        <th class="border-right" scope="row">{{$loop->iteration }}.</th>
                                         <td class="border-right">{{$user->name}}</td>
                                         <td class="border-right">{{$user->role->name}}</td>
                                         <td>
@@ -95,7 +95,7 @@
                         <input type="text" class="form-control-file" id="edit_email" name="email">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Role</label>
+                        <label for="">Role</label>
                         <select name="roleselect" class="form-control" id="edit_role">
                             @foreach ($roles as $role)
                             <option value="{{$role->id}}">{{$role->name}}</option>

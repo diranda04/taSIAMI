@@ -13,9 +13,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/penempatan', 'AuditController@penempatan')->name('penempatan.print');
         Route::get('/dokumen-audit/instrument-ami/{id_audit}', 'AuditInstrumentController@lihatReport')->name('report.lihat');
         Route::get('/audit-prodi/temuan-audit/print/{id_audit}', 'AuditFindingController@printFinding')->name('finding.print');
+        Route::get('/profile', 'UserController@profile')->name('user.profile');
+        Route::get('change-password', 'HomeController@changePassword')->name('view.changePassword');
+        Route::post('change-password', 'HomeController@store')->name('change.password');
+        Route::get('/viewChart', 'PrintChartController@preview')->name('view.chart');
+        Route::post('/print_chart',[
+            'uses'=>'PrintChartController@print'
+        ]);
 
-        // Route::get('preview', 'PrintChartController@preview');
-        // Route::get('download', 'PrintChartController@download')->name('download');
 
     Route::group(['middleware' => ['checkrole:Admin']], function () {
 
@@ -77,7 +82,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/audit_book/{id_standard}', 'BookController@destroy')->name('book.destroy');
         Route::delete('score_detail/{id_score_detail}', 'ScoreDetailController@destroy')->name('detail.destroy');
 
-        Route::patch('/standard', 'StandardController@update')->name('standard.edit');
+        Route::patch('/standard/{id_instrument}', 'StandardController@update')->name('standard.edit');
+        Route::patch('/instrument', 'AuditInstrumentController@update')->name('instrument.edit');
         Route::patch('/standard_component/{id_standard}', 'StandardComponentController@update')->name('component.edit');
         Route::patch('/user', 'UserController@update')->name('user.edit');
         Route::patch('/dosen', 'LecturerController@update')->name('lecturer.edit');
@@ -85,6 +91,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/faculties', 'FacultyController@update')->name('faculty.edit');
         Route::patch('/department/{id_faculty}', 'DepartmentController@update')->name('prodi.edit');
         Route::patch('/score_detail/{id_question}', 'ScoreDetailController@update')->name('detail.edit');
+        Route::patch('/prodi-auditor', 'DepartmentAuditController@update')->name('departmentAudit.edit');
+        Route::patch('/dekan', 'DeanController@update')->name('dean.edit');
+        Route::patch('/periode', 'PeriodeController@update')->name('periode.edit');
+
 
 });
 
@@ -118,7 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/PTK/permintaan-tindakan-koreksi/print/{id_audit}', 'CorrectionFormController@printPTK')->name('ptk.print');
         Route::get('/skor_taksiran/{id_audit}', 'AuditScoreController@indexAuditee')->name('skortaksiran.view');
         Route::get('/skor_taksiran/get_data/{id_audit}/','AuditScoreController@get_score')->name('skortaksiran.get_data');
-        Route::get('/berita_acara/{id_department}', 'AuditController@beritaAcara')->name('beritaAcara.audit');
+        Route::get('/berita_acara/{id_audit}', 'AuditController@beritaAcara')->name('beritaAcara.audit');
         Route::get('/auditee/dokumen-audit', 'AuditController@dokumenAuditee')->name('dokumen.auditee');
 
         Route::post('/skor_taksiran/{id_audit}/{id_question}', 'AuditScoreController@store')->name('auditeeScore.post');

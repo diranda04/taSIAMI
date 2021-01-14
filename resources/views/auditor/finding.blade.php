@@ -67,7 +67,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Keterangan</label>
-                        <textarea type="text" class="form-control-file" id="desc" name="desc" cols="30" rows="5"></textarea>
+                        <textarea type="text" class="form-control-file" id="desc" name="desc" cols="30" rows="5" required></textarea>
                     </div>
             </div>
             <div class="modal-footer">

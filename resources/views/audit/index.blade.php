@@ -57,7 +57,7 @@
                                     <option selected disabled value=""></option>
                                     @foreach ($periodes as $periode)
                                     <option value="{{$periode->id_periode}}">
-                                        {{Carbon\Carbon::parse($periode->audit_start_at)->format('Y')}}</option>
+                                        {{Carbon\Carbon::parse($periode->audit_start_at)->format('Y')}}-{{$periode->instrument->instrument_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
