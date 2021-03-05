@@ -16,7 +16,7 @@
                             <table class="table table-striped">
                                 <thead class="text-center">
                                     <tr>
-                                        <th class="border-right">Periode</th>
+                                        <th class="border-right">Periode fsdsdfsfsffs</th>
                                         <th class="border-right">Prodi</th>
                                         <th class="border-right">Auditor</th>
                                         <th class="border-right">Perkiraan Skor Audit</th>
